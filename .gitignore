@@ -1,0 +1,10 @@
+vivado.cache
+vivado.runs
+vivado.gen
+vivado.ip_user_files
+vivado.sim
+vivado.hw
+
+_ide
+.rigel_lopper
+platform1
