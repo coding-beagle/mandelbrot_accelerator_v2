@@ -1,0 +1,7 @@
+//arch = zynq; split = false; format = BIN
+the_ROM_image:
+{
+	[bootloader]S:\Codes\mandelbrot_super_accelerator\vitis\platform1\export\platform1\sw\boot\fsbl.elf
+	S:\Codes\mandelbrot_super_accelerator\vitis\lwip2\_ide\bitstream\mandelbrot_bd_wrapper.bit
+	S:\Codes\mandelbrot_super_accelerator\vitis\lwip2\build\lwip2.elf
+}

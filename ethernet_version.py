@@ -13,9 +13,9 @@ import keyboard as kb
 # CONNECTION STUFF
 
 # take the server name and port name
-host = "192.168.1.3"
+host = "192.168.1.10"
 port = 7
-host2 = "192.168.1.10"
+host2 = "192.168.1.3"
 port2 = 7
 
 # RENDERING SETTINGS
@@ -23,8 +23,8 @@ port2 = 7
 PIXELS_PER_LINE_LOW = 320
 TOTAL_Y_LOW = 240
 
-PIXELS_PER_LINE = 1920
-TOTAL_Y = 1080
+PIXELS_PER_LINE = 640
+TOTAL_Y = 480
 
 # create a socket at client side
 # using TCP / IP protocol
@@ -42,10 +42,10 @@ s2.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, 65536)
 # number on local computer.
 s.connect((host, port))
 print("connected to 1")
-s2.connect((host2, port2))
-print("connected to 2")
+# s2.connect((host2, port2))
+# print("connected to 2")
 
-sockets = [s, s2]
+sockets = [s]
 
 
 class MandelbrotStreamingClient:
@@ -405,7 +405,7 @@ def pan_down():
 def zoom_in():
     global current_zoom, current_xstep, current_ystep
 
-    current_zoom *= 1.5
+    current_zoom = 1.5
     current_xstep /= current_zoom
     current_ystep /= current_zoom
 
@@ -417,7 +417,7 @@ def zoom_in():
 def zoom_out():
     global current_zoom, current_xstep, current_ystep
 
-    current_zoom *= 1 / 1.5
+    current_zoom = 1.5
     current_xstep /= current_zoom
     current_ystep /= current_zoom
 
