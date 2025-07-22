@@ -44,7 +44,7 @@
 
 #define LINE_SIZE 480
 #define HEIGHT 1080
-#define LINES_PER_SEND 2
+#define LINES_PER_SEND 6
 
 
 int transfer_data() {

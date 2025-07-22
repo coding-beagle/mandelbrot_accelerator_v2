@@ -13,34 +13,45 @@ import keyboard as kb
 # CONNECTION STUFF
 
 # take the server name and port name
-host = '192.168.1.10'
+host = "192.168.1.3"
 port = 7
+host2 = "192.168.1.10"
+port2 = 7
 
 # RENDERING SETTINGS
 
 PIXELS_PER_LINE_LOW = 320
 TOTAL_Y_LOW = 240
 
-PIXELS_PER_LINE = 640
-TOTAL_Y = 480
+PIXELS_PER_LINE = 1920
+TOTAL_Y = 1080
 
 # create a socket at client side
 # using TCP / IP protocol
-s = socket.socket(socket.AF_INET,
-                  socket.SOCK_STREAM)
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 s.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 65536)
 s.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, 65536)
 
+s2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+s2.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 65536)
+s2.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, 65536)
+
 # connect it to server and port
 # number on local computer.
 s.connect((host, port))
+print("connected to 1")
+s2.connect((host2, port2))
+print("connected to 2")
+
+sockets = [s, s2]
 
 
 class MandelbrotStreamingClient:
     def __init__(self, socket_obj):
         self.sock = socket_obj
-        self.buffer = b''
+        self.buffer = b""
 
     def flush_socket_buffer(self):
         """Clear any remaining data in socket buffer"""
@@ -54,15 +65,14 @@ class MandelbrotStreamingClient:
             pass
         finally:
             self.sock.settimeout(10.0)
-            self.buffer = b''
+            self.buffer = b""
 
-    def receive_until_delimiter(self, delimiter=b'\n'):
+    def receive_until_delimiter(self, delimiter=b"\n"):
         """Receive data until we find the delimiter"""
         while delimiter not in self.buffer:
             chunk = self.sock.recv(4096)
             if not chunk:
-                raise ConnectionError(
-                    "Socket closed before receiving delimiter")
+                raise ConnectionError("Socket closed before receiving delimiter")
             self.buffer += chunk
 
         # Split at first delimiter
@@ -74,8 +84,7 @@ class MandelbrotStreamingClient:
         while len(self.buffer) < length:
             chunk = self.sock.recv(length - len(self.buffer))
             if not chunk:
-                raise ConnectionError(
-                    "Socket closed before receiving all data")
+                raise ConnectionError("Socket closed before receiving all data")
             self.buffer += chunk
 
         # Extract the required amount
@@ -86,7 +95,7 @@ class MandelbrotStreamingClient:
     def start_streaming(self, low_res: bool = False):
         """Start the streaming process and return stream info"""
         self.flush_socket_buffer()
-        if (low_res):
+        if low_res:
             self.sock.send("LOWRE".encode())
         else:
             self.sock.send("STREM".encode())
@@ -99,7 +108,7 @@ class MandelbrotStreamingClient:
             raise ValueError(f"Unexpected response: {response_str}")
 
         # Parse total lines from response: "STREAM_START:LINES:1080"
-        match = re.search(r'LINES:(\d+)', response_str)
+        match = re.search(r"LINES:(\d+)", response_str)
         if match:
             total_lines = int(match.group(1))
             print(f"Starting stream for {total_lines} lines")
@@ -120,7 +129,7 @@ class MandelbrotStreamingClient:
             raise ValueError(f"Unexpected line format: {line_str[:50]}...")
 
         # Extract line number and hex data
-        parts = line_str.split(':', 2)
+        parts = line_str.split(":", 2)
         if len(parts) != 3:
             raise ValueError(f"Invalid line format: {line_str[:50]}...")
 
@@ -132,8 +141,7 @@ class MandelbrotStreamingClient:
             raise ValueError(f"Hex data length not even: {len(hex_data)}")
 
         # Convert hex pairs to integers
-        int_array = [int(hex_data[i:i+2], 16)
-                     for i in range(0, len(hex_data), 2)]
+        int_array = [int(hex_data[i : i + 2], 16) for i in range(0, len(hex_data), 2)]
 
         return line_number, np.array(int_array, dtype=np.uint8)
 
@@ -158,8 +166,7 @@ class MandelbrotStreamingClient:
             # Initialize full image array on first line
             if full_image is None:
                 line_length = len(line_data)
-                full_image = np.zeros(
-                    (total_lines, line_length), dtype=np.uint8)
+                full_image = np.zeros((total_lines, line_length), dtype=np.uint8)
                 print(f"Image dimensions: {total_lines} x {line_length}")
 
             # Store the line data
@@ -171,11 +178,11 @@ class MandelbrotStreamingClient:
                     elapsed = time() - start_time
                     progress = (received_lines / total_lines) * 100
                     print(
-                        f"Progress: {progress:.1f}% ({received_lines}/{total_lines}) - {elapsed:.2f}s")
+                        f"Progress: {progress:.1f}% ({received_lines}/{total_lines}) - {elapsed:.2f}s"
+                    )
 
         elapsed = time() - start_time
-        print(
-            f"Stream complete! Received {received_lines} lines in {elapsed:.2f}s")
+        print(f"Stream complete! Received {received_lines} lines in {elapsed:.2f}s")
 
         return full_image
 
@@ -183,41 +190,42 @@ class MandelbrotStreamingClient:
 class NamedRegisters(Enum):
     CURRENT_X = "CURRX"
     CURRENT_Y = "CURRY"
-    STEP_X = 'XSTEP'
-    STEP_Y = 'YSTEP'
-    TOP_LEFT_X = 'X_TOP'
-    TOP_LEFT_Y = 'Y_TOP'
-    Z_RE = 'ZREAL'
-    Z_IM = 'ZIMAG'
+    STEP_X = "XSTEP"
+    STEP_Y = "YSTEP"
+    TOP_LEFT_X = "X_TOP"
+    TOP_LEFT_Y = "Y_TOP"
+    Z_RE = "ZREAL"
+    Z_IM = "ZIMAG"
 
 
-def flush_socket_buffer():
+def flush_socket_buffer(incoming_socket):
     """Clear any remaining data in the socket buffer"""
-    s.settimeout(0.1)  # Short timeout
+    incoming_socket.settimeout(0.1)  # Short timeout
     try:
         while True:
-            data = s.recv(1024)
+            data = incoming_socket.recv(1024)
             if not data:
                 break
             # print(f"Flushed: {data}")
     except socket.timeout:
         pass  # Expected when buffer is empty
     finally:
-        s.settimeout(None)  # Reset to blocking
+        incoming_socket.settimeout(None)  # Reset to blocking
 
 
 def check_reg(reg: str):
     valid_regs: list[str] = [e.value for e in NamedRegisters]
     if reg not in valid_regs:
         raise ValueError(
-            f"Invalid register to send to, valid registers are {valid_regs}")
+            f"Invalid register to send to, valid registers are {valid_regs}"
+        )
 
 
 def custom_decode(bytes_val: bytes):
-    return str(bytes_val).replace("\\x", "").replace("'", "").strip('b').upper()
+    return str(bytes_val).replace("\\x", "").replace("'", "").strip("b").upper()
 
 
-def send_float(value: Union[float, str], reg: str):
+def send_float(value: Union[float, str], reg: str, socket=s):
     check_reg(reg)
 
     data_bytes = FixedPoint(
@@ -230,27 +238,28 @@ def send_float(value: Union[float, str], reg: str):
 
     data_bytes = bytes(struct.pack(">Q", data_bytes.bits))
 
-    message = reg.encode() + " ".encode() + data_bytes + \
-        chr(4).encode() + chr(4).encode()
+    message = (
+        reg.encode() + " ".encode() + data_bytes + chr(4).encode() + chr(4).encode()
+    )
 
-    s.send(message)
+    socket.send(message)
 
 
-def fetch_float(reg: str, ret_hex: bool = False):
+def fetch_float(reg: str, ret_hex: bool = False, socket=s):
     check_reg(reg)
 
-    flush_socket_buffer()
+    flush_socket_buffer(socket)
 
     print(f"Fetching reg {reg}")
 
     message = reg.encode()
-    s.send(message)
+    socket.send(message)
 
-    s.settimeout(2.0)
-    msg = s.recv(32)
+    socket.settimeout(2.0)
+    msg = socket.recv(32)
 
     # print(f"Raw Resp = {msg}")
-    if (ret_hex):
+    if ret_hex:
         return custom_decode(msg)
 
     return float(
@@ -274,24 +283,23 @@ def get_line_streaming(sock, low_res: bool = False):
     """New streaming version of get_line"""
     client = MandelbrotStreamingClient(sock)
 
-    if (low_res):
+    if low_res:
         return client.get_full_mandelbrot_stream(True)
     else:
         return client.get_full_mandelbrot_stream()
 
 
 def reset():
-    flush_socket_buffer()
-
-    s.send("RESET".encode())
-
-    # return
+    for socket in sockets:
+        flush_socket_buffer(socket)
+        socket.send("RESET".encode())
 
 
 def calculate():
-    flush_socket_buffer()
-    print("Starting full res calculation!")
-    s.send("CALCE".encode())
+    for socket in sockets:
+        flush_socket_buffer(socket)
+        socket.send("CALCE".encode())
+
     time = time_ns()
 
     s.settimeout(100.0)
@@ -307,10 +315,9 @@ def send_defaults():
     print(fetch_float(NamedRegisters.TOP_LEFT_X.value))
     send_float(1, NamedRegisters.TOP_LEFT_Y.value)
     print(fetch_float(NamedRegisters.TOP_LEFT_Y.value))
-    send_float(-3/PIXELS_PER_LINE,
-               NamedRegisters.STEP_X.value)
+    send_float(-3 / PIXELS_PER_LINE, NamedRegisters.STEP_X.value)
     print(fetch_float(NamedRegisters.STEP_X.value))
-    send_float(2/TOTAL_Y, NamedRegisters.STEP_Y.value)
+    send_float(2 / TOTAL_Y, NamedRegisters.STEP_Y.value)
     print(fetch_float(NamedRegisters.STEP_Y.value))
     send_float(0, NamedRegisters.CURRENT_X.value)
     send_float(0, NamedRegisters.CURRENT_Y.value)
@@ -321,8 +328,8 @@ send_defaults()
 DEFAULT_CURRENT_LEFT = -2
 DEFAULT_CURRENT_UP = 1
 DEFALT_CURRENT_ZOOM = 1
-DEFAULT_XSTEP = -3/PIXELS_PER_LINE_LOW
-DEFAULT_YSTEP = 2/TOTAL_Y_LOW
+DEFAULT_XSTEP = -3 / PIXELS_PER_LINE
+DEFAULT_YSTEP = 2 / TOTAL_Y
 DEFAULT_STEPPING = 0.1
 
 data = np.zeros([TOTAL_Y, PIXELS_PER_LINE], np.uint8)
@@ -367,8 +374,7 @@ def pan_left():
     global current_left, stepping_factor
     current_left -= stepping_factor
     send_float(current_left, NamedRegisters.TOP_LEFT_X.value)
-    print(
-        f"fetched left value = {fetch_float(NamedRegisters.TOP_LEFT_X.value)}")
+    print(f"fetched left value = {fetch_float(NamedRegisters.TOP_LEFT_X.value)}")
     calc_and_redraw()
 
 
@@ -376,8 +382,7 @@ def pan_right():
     global current_left, stepping_factor
     current_left += stepping_factor
     send_float(current_left, NamedRegisters.TOP_LEFT_X.value)
-    print(
-        f"fetched left value = {fetch_float(NamedRegisters.TOP_LEFT_X.value)}")
+    print(f"fetched left value = {fetch_float(NamedRegisters.TOP_LEFT_X.value)}")
     calc_and_redraw()
 
 
@@ -385,8 +390,7 @@ def pan_up():
     global current_up, stepping_factor
     current_up += stepping_factor
     send_float(current_up, NamedRegisters.TOP_LEFT_Y.value)
-    print(
-        f"fetched up value = {fetch_float(NamedRegisters.TOP_LEFT_Y.value)}")
+    print(f"fetched up value = {fetch_float(NamedRegisters.TOP_LEFT_Y.value)}")
     calc_and_redraw()
 
 
@@ -394,8 +398,7 @@ def pan_down():
     global current_up, stepping_factor
     current_up -= stepping_factor
     send_float(current_up, NamedRegisters.TOP_LEFT_Y.value)
-    print(
-        f"fetched up value = {fetch_float(NamedRegisters.TOP_LEFT_Y.value)}")
+    print(f"fetched up value = {fetch_float(NamedRegisters.TOP_LEFT_Y.value)}")
     calc_and_redraw()
 
 
@@ -436,27 +439,30 @@ def reset_and_redraw():
     calc_and_redraw()
 
 
-kb.add_hotkey('r', lambda: reset_and_redraw())
-kb.add_hotkey('a', lambda: pan_left())
-kb.add_hotkey('d', lambda: pan_right())
-kb.add_hotkey('w', lambda: pan_up())
-kb.add_hotkey('s', lambda: pan_down())
-kb.add_hotkey('f', lambda: zoom_in())
-kb.add_hotkey('g', lambda: zoom_out())
-kb.add_hotkey('up', lambda: increase_stepping_factor())
-kb.add_hotkey('down', lambda: decrease_stepping_factor())
+kb.add_hotkey("r", lambda: reset_and_redraw())
+kb.add_hotkey("a", lambda: pan_left())
+kb.add_hotkey("d", lambda: pan_right())
+kb.add_hotkey("w", lambda: pan_up())
+kb.add_hotkey("s", lambda: pan_down())
+kb.add_hotkey("f", lambda: zoom_in())
+kb.add_hotkey("g", lambda: zoom_out())
+kb.add_hotkey("up", lambda: increase_stepping_factor())
+kb.add_hotkey("down", lambda: decrease_stepping_factor())
 
 calc_and_redraw()
 
 while True:
     # Press Q on keyboard to  exit
-    if cv.waitKey(25) & 0xFF == ord('q'):
+    # pylint:disable=E1101
+    if cv.waitKey(25) & 0xFF == ord("q"):
         break
-    cv.imshow("Mandelbrot", data)
+    cv.imshow("Mandelbrot", data)  # pylint:disable=E1101
 
+# pylint:disable=E1101
 cv.destroyAllWindows()
 
-RENDER_NAME = "half_fast"
+
+# RENDER_NAME = "half_fast"
 
 # cv.imwrite(f'renders/{RENDER_NAME}.bmp', data)
 
