@@ -53,7 +53,7 @@ module mandelbrotCalculator(
                 CALC_Z = 2,
                 FINAL = 3;
     
-//    reg signed [63:0] temp;
+    wire signed [63:0] temp;
     reg signed [63:0] temp2;
 //    reg [127:0] debug_out;
     
@@ -104,7 +104,7 @@ module mandelbrotCalculator(
         end else if(!finished) begin
                 case(calc_state)
                     WAIT_FOR_SQUARES: begin
-                        if(multiplication_reg < 3) // wait for multipliers to work
+                        if(multiplication_reg < 1) // wait for multipliers to work
                             multiplication_reg <= multiplication_reg + 1;
                         else begin
                             calc_state <= WAIT_FOR_TEMP;
@@ -112,7 +112,7 @@ module mandelbrotCalculator(
                         end
                     end
                     WAIT_FOR_TEMP: begin
-                        if(multiplication_reg < 4) // wait for multipliers to work
+                        if(multiplication_reg < 1) // wait for multipliers to work
                             multiplication_reg <= multiplication_reg + 1;
                         else begin
                             calc_state <= CALC_Z;

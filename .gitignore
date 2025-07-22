@@ -8,3 +8,5 @@ vivado.hw
 _ide
 .rigel_lopper
 platform1
+
+.venv
