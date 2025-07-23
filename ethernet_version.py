@@ -354,8 +354,47 @@ def zoom_to_rectangle():
 
 
 def mouse_callback(event, x, y, flags, param):
-    """Mouse callback for rectangle selection - improved version"""
+    """Mouse callback for rectangle selection - improved version with aspect ratio constraint"""
     global drawing, rect_start, rect_end, temp_img, data, selection_complete, rect_start, rect_end, current_left, current_up, current_xstep, current_ystep
+
+    def constrain_aspect_ratio(start_point, end_point, target_ratio=1.33):
+        """Constrain rectangle to maintain aspect ratio of target_ratio:1 (width:height)"""
+        start_x, start_y = start_point
+        end_x, end_y = end_point
+
+        # Calculate current dimensions
+        width = abs(end_x - start_x)
+        height = abs(end_y - start_y)
+
+        # If width is 0, return original points to avoid division by zero
+        if width == 0:
+            return end_point
+
+        # Calculate what height should be based on width and target ratio
+        target_height = width / target_ratio
+
+        # Calculate what width should be based on height and target ratio
+        target_width = height * target_ratio
+
+        # Choose the constraint that results in a smaller rectangle (fits within current bounds)
+        if target_height <= height:
+            # Use width-based constraint
+            new_height = int(target_height)
+            # Maintain the direction of the drag
+            if end_y >= start_y:
+                new_end_y = start_y + new_height
+            else:
+                new_end_y = start_y - new_height
+            return (end_x, new_end_y)
+        else:
+            # Use height-based constraint
+            new_width = int(target_width)
+            # Maintain the direction of the drag
+            if end_x >= start_x:
+                new_end_x = start_x + new_width
+            else:
+                new_end_x = start_x - new_width
+            return (new_end_x, end_y)
 
     if event == cv.EVENT_LBUTTONDOWN:
         drawing = True
@@ -364,14 +403,21 @@ def mouse_callback(event, x, y, flags, param):
         temp_img = data.copy()
         selection_complete = False
         print(f"Started rectangle at ({x}, {y})")
+        if flags & cv.EVENT_FLAG_SHIFTKEY:
+            print("Shift held - constraining to 1.33:1 aspect ratio")
 
     elif event == cv.EVENT_MOUSEMOVE:
         if drawing and temp_img is not None:
             temp_img = data.copy()
-            rect_end = (x, y)
+
+            # Check if Shift is held for aspect ratio constraint
+            if flags & cv.EVENT_FLAG_SHIFTKEY:
+                rect_end = constrain_aspect_ratio(rect_start, (x, y))
+            else:
+                rect_end = (x, y)
+
             # Draw rectangle on temporary image
             cv.rectangle(temp_img, rect_start, rect_end, (255, 255, 255), 2)
-
             # Add corner markers for better visibility
             cv.circle(temp_img, rect_start, 3, (255, 255, 255), -1)
             cv.circle(temp_img, rect_end, 3, (255, 255, 255), -1)
@@ -379,75 +425,30 @@ def mouse_callback(event, x, y, flags, param):
     elif event == cv.EVENT_LBUTTONUP:
         if drawing:
             drawing = False
-            rect_end = (x, y)
+
+            # Apply final aspect ratio constraint if Shift was held
+            if flags & cv.EVENT_FLAG_SHIFTKEY:
+                rect_end = constrain_aspect_ratio(rect_start, (x, y))
+            else:
+                rect_end = (x, y)
 
             # Only mark as complete if rectangle has meaningful size
             width = abs(rect_end[0] - rect_start[0])
             height = abs(rect_end[1] - rect_start[1])
-
             if width >= 5 and height >= 5:
                 temp_img = data.copy()
                 cv.rectangle(temp_img, rect_start, rect_end, (255, 255, 255), 2)
                 cv.circle(temp_img, rect_start, 3, (255, 255, 255), -1)
                 cv.circle(temp_img, rect_end, 3, (255, 255, 255), -1)
                 selection_complete = True
+                aspect_ratio = width / height if height > 0 else 0
                 print(
                     f"Rectangle selected: ({rect_start[0]}, {rect_start[1]}) to ({rect_end[0]}, {rect_end[1]})"
                 )
+                print(
+                    f"Dimensions: {width}x{height}, Aspect ratio: {aspect_ratio:.2f}:1"
+                )
                 print("Press 'z' to zoom into selected area or 'c' to cancel selection")
-
-                if not selection_complete:
-                    print("No rectangle selected!")
-                    return
-
-                # Ensure rectangle coordinates are valid
-                x1, y1 = rect_start
-                x2, y2 = rect_end
-
-                # Make sure we have proper min/max
-                if x1 > x2:
-                    x1, x2 = x2, x1
-                if y1 > y2:
-                    y1, y2 = y2, y1
-
-                # Prevent zero or negative width/height rectangles
-                if x2 - x1 < 5 or y2 - y1 < 5:
-                    print("Rectangle too small for meaningful zoom!")
-                    return
-
-                print(f"Rectangle pixels: ({x1}, {y1}) to ({x2}, {y2})")
-                print(
-                    f"Current view: left={float(current_left)}, up={float(current_up)}"
-                )
-                print(
-                    f"Current steps: x={float(current_xstep)}, y={float(current_ystep)}"
-                )
-
-                # Calculate the real-world coordinates of the rectangle
-                # The current view spans from current_left to (current_left + PIXELS_PER_LINE * current_xstep)
-                # and from current_up to (current_up - TOTAL_Y * current_ystep)
-
-                rect_left = float(current_left) - (x1 * float(current_xstep))
-                rect_right = float(current_left) - (x2 * float(current_xstep))
-                rect_top = float(current_up) - (
-                    y1 * float(current_ystep)
-                )  # y1 is top pixel
-                rect_bottom = float(current_up) - (
-                    y2 * float(current_ystep)
-                )  # y2 is bottom pixel
-
-                # Calculate new parameters
-                rect_width = abs(rect_right - rect_left)
-                rect_height = rect_top - rect_bottom
-                # Should be positive (top > bottom in mandelbrot coords)
-
-                print(
-                    f"Rectangle mandelbrot coords: left={rect_left}, right={rect_right}"
-                )
-                print(
-                    f"Rectangle mandelbrot coords: top={rect_top}, bottom={rect_bottom}"
-                )
-                print(f"Rectangle size: width={rect_width}, height={rect_height}")
             else:
                 print("Rectangle too small - selection cancelled")
                 temp_img = None
@@ -546,18 +547,6 @@ current_ystep = FP_DEFAULT_YSTEP
 stepping_factor = FP_STEPPING
 
 
-def increase_stepping_factor():
-    global stepping_factor
-    stepping_factor = stepping_factor * FixedPoint(1.1, signed=True, m=12, n=52)
-    print(f"New stepping factor = {float(stepping_factor)}")
-
-
-def decrease_stepping_factor():
-    global stepping_factor
-    stepping_factor = stepping_factor * FixedPoint(0.9, signed=True, m=12, n=52)
-    print(f"New stepping factor = {float(stepping_factor)}")
-
-
 def calc_and_redraw():
     global data, temp_img
     send_float(0.0, NamedRegisters.CURRENT_X.value)
@@ -646,8 +635,8 @@ kb.add_hotkey("w", lambda: pan_up())
 kb.add_hotkey("s", lambda: pan_down())
 kb.add_hotkey("f", lambda: zoom_in())
 kb.add_hotkey("g", lambda: zoom_out())
-kb.add_hotkey("up", lambda: increase_stepping_factor())
-kb.add_hotkey("down", lambda: decrease_stepping_factor())
+# kb.add_hotkey("up", lambda: increase_stepping_factor())
+# kb.add_hotkey("down", lambda: decrease_stepping_factor())
 kb.add_hotkey("z", lambda: zoom_to_rectangle())
 kb.add_hotkey("c", lambda: clear_selection())
 
