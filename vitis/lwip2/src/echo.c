@@ -403,6 +403,12 @@ err_t recv_callback(void *arg, struct tcp_pcb *tpcb,
             
             xil_printf("STARTING");
 
+            current_x_val = 0;
+            SetGPIO(&CurrentX, current_x_val);
+            current_y_val = 0;
+            SetGPIO(&CurrentY, current_y_val);
+
+
             for(int i = 0; i < HEIGHT; i++ ){
                 for(int j = 0; j < LINE_SIZE; j += 4) {
 					// xil_printf("Calculating pixel x, y = %d, %d", i, j);

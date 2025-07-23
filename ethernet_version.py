@@ -11,41 +11,57 @@ import cv2 as cv
 import keyboard as kb
 
 # CONNECTION STUFF
-
-# take the server name and port name
 host = "192.168.1.10"
 port = 7
 host2 = "192.168.1.3"
 port2 = 7
 
 # RENDERING SETTINGS
-
 PIXELS_PER_LINE_LOW = 320
 TOTAL_Y_LOW = 240
-
 PIXELS_PER_LINE = 640
 TOTAL_Y = 480
 
-# create a socket at client side
-# using TCP / IP protocol
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# FIXED POINT CONSTANTS - Using calculated values
+DEFAULT_LEFT = -2
+DEFAULT_UP = 1
+DEFAULT_ZOOM = 1
+DEFAULT_XSTEP = -3 / PIXELS_PER_LINE
+DEFAULT_YSTEP = 2 / TOTAL_Y
+DEFAULT_STEPPING = 0.1
 
+# Pre-calculated FixedPoint constants
+FP_NEG_TWO = FixedPoint(DEFAULT_LEFT, signed=True, m=12, n=52)
+FP_ONE = FixedPoint(DEFAULT_UP, signed=True, m=12, n=52)
+FP_ZERO = FixedPoint(0, signed=True, m=12, n=52)
+FP_DEFAULT_XSTEP = FixedPoint(DEFAULT_XSTEP, signed=True, m=12, n=52)
+FP_DEFAULT_YSTEP = FixedPoint(DEFAULT_YSTEP, signed=True, m=12, n=52)
+FP_ONE_POINT_FIVE = FixedPoint(1.5, signed=True, m=12, n=52)
+FP_STEPPING = FixedPoint(DEFAULT_STEPPING, signed=True, m=12, n=52)
+FP_ONE_POINT_ONE = FixedPoint(1.1, signed=True, m=12, n=52)
+FP_ZERO_POINT_NINE = FixedPoint(0.9, signed=True, m=12, n=52)
+
+# create sockets
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 65536)
 s.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, 65536)
 
 s2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
 s2.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 65536)
 s2.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, 65536)
 
-# connect it to server and port
-# number on local computer.
+# connect
 s.connect((host, port))
 print("connected to 1")
-# s2.connect((host2, port2))
-# print("connected to 2")
 
 sockets = [s]
+
+# Mouse callback variables for rectangle selection
+drawing = False
+rect_start = (-1, -1)
+rect_end = (-1, -1)
+temp_img = None
+selection_complete = False
 
 
 class MandelbrotStreamingClient:
@@ -200,17 +216,16 @@ class NamedRegisters(Enum):
 
 def flush_socket_buffer(incoming_socket):
     """Clear any remaining data in the socket buffer"""
-    incoming_socket.settimeout(0.1)  # Short timeout
+    incoming_socket.settimeout(0.1)
     try:
         while True:
             data = incoming_socket.recv(1024)
             if not data:
                 break
-            # print(f"Flushed: {data}")
     except socket.timeout:
-        pass  # Expected when buffer is empty
+        pass
     finally:
-        incoming_socket.settimeout(None)  # Reset to blocking
+        incoming_socket.settimeout(None)
 
 
 def check_reg(reg: str):
@@ -225,31 +240,27 @@ def custom_decode(bytes_val: bytes):
     return str(bytes_val).replace("\\x", "").replace("'", "").strip("b").upper()
 
 
-def send_float(value: Union[float, str], reg: str, socket=s):
+def send_float(value: Union[float, str, FixedPoint], reg: str, socket=s):
     check_reg(reg)
 
-    data_bytes = FixedPoint(
-        value,
-        signed=True,
-        m=12,
-        n=52,
-        str_base=16,
-    )
+    if isinstance(value, FixedPoint):
+        data_bytes = value.bits  # Extract the bits from FixedPoint
+    else:
+        fp = FixedPoint(value, signed=True, m=12, n=52, str_base=16)
+        data_bytes = fp.bits  # Extract the bits from the newly created FixedPoint
 
-    data_bytes = bytes(struct.pack(">Q", data_bytes.bits))
+    bits_value = data_bytes & 0xFFFFFFFFFFFFFFFF
 
+    data_bytes = bytes(struct.pack(">Q", bits_value))
     message = (
         reg.encode() + " ".encode() + data_bytes + chr(4).encode() + chr(4).encode()
     )
-
     socket.send(message)
 
 
 def fetch_float(reg: str, ret_hex: bool = False, socket=s):
     check_reg(reg)
-
     flush_socket_buffer(socket)
-
     print(f"Fetching reg {reg}")
 
     message = reg.encode()
@@ -258,31 +269,226 @@ def fetch_float(reg: str, ret_hex: bool = False, socket=s):
     socket.settimeout(2.0)
     msg = socket.recv(32)
 
-    # print(f"Raw Resp = {msg}")
     if ret_hex:
         return custom_decode(msg)
 
-    return float(
-        FixedPoint(
-            "0x" + (custom_decode(msg)),
-            signed=True,
-            m=12,
-            n=52,
-        )
+    return float(FixedPoint("0x" + (custom_decode(msg)), signed=True, m=12, n=52))
+
+
+def zoom_to_rectangle():
+    """Zoom into the selected rectangle area"""
+    global rect_start, rect_end, current_left, current_up, current_xstep, current_ystep, selection_complete
+
+    if not selection_complete:
+        print("No rectangle selected!")
+        return
+
+    # Ensure rectangle coordinates are valid
+    x1, y1 = rect_start
+    x2, y2 = rect_end
+
+    # Make sure we have proper min/max
+    if x1 > x2:
+        x1, x2 = x2, x1
+    if y1 > y2:
+        y1, y2 = y2, y1
+
+    # Prevent zero or negative width/height rectangles
+    if x2 - x1 < 5 or y2 - y1 < 5:
+        print("Rectangle too small for meaningful zoom!")
+        return
+
+    print(f"Rectangle pixels: ({x1}, {y1}) to ({x2}, {y2})")
+    print(f"Current view: left={float(current_left)}, up={float(current_up)}")
+    print(f"Current steps: x={float(current_xstep)}, y={float(current_ystep)}")
+
+    # Calculate the real-world coordinates of the rectangle
+    # The current view spans from current_left to (current_left + PIXELS_PER_LINE * current_xstep)
+    # and from current_up to (current_up - TOTAL_Y * current_ystep)
+
+    rect_left = float(current_left) - (x1 * float(current_xstep))
+    rect_right = float(current_left) - (x2 * float(current_xstep))
+    rect_top = float(current_up) - (y1 * float(current_ystep))  # y1 is top pixel
+    rect_bottom = float(current_up) - (y2 * float(current_ystep))  # y2 is bottom pixel
+
+    # Calculate new parameters
+    rect_width = abs(rect_right - rect_left)
+    rect_height = abs(rect_top - rect_bottom)
+    # Should be positive (top > bottom in mandelbrot coords)
+
+    print(f"Rectangle mandelbrot coords: left={rect_left}, right={rect_right}")
+    print(f"Rectangle mandelbrot coords: top={rect_top}, bottom={rect_bottom}")
+    print(f"Rectangle size: width={rect_width}, height={rect_height}")
+
+    # Ensure we have positive dimensions
+    if rect_width <= 0 or rect_height <= 0:
+        print("Invalid rectangle dimensions in mandelbrot space!")
+        return
+
+    # Update the view parameters
+    current_left = FixedPoint(
+        rect_left if rect_left < rect_right else rect_right, signed=True, m=12, n=52
     )
+    current_up = FixedPoint(rect_top, signed=True, m=12, n=52)  # Use rect_top, not max
+    current_xstep = FixedPoint(-rect_width / PIXELS_PER_LINE, signed=True, m=12, n=52)
+    current_ystep = FixedPoint(rect_height / TOTAL_Y, signed=True, m=12, n=52)
+
+    print(f"New view: left={float(current_left)}, up={float(current_up)}")
+    print(f"New steps: x={float(current_xstep)}, y={float(current_ystep)}")
+
+    # Send new parameters to the server
+    send_float(current_left, NamedRegisters.TOP_LEFT_X.value)
+    print(f"fetched top left x value = {fetch_float(NamedRegisters.TOP_LEFT_X.value)}")
+    send_float(current_up, NamedRegisters.TOP_LEFT_Y.value)
+    print(f"fetched top left y value = {fetch_float(NamedRegisters.TOP_LEFT_Y.value)}")
+    send_float(current_xstep, NamedRegisters.STEP_X.value)
+    print(f"current_xstep = {fetch_float(NamedRegisters.STEP_X.value)}")
+    send_float(current_ystep, NamedRegisters.STEP_Y.value)
+    print(f"current_ystep = {fetch_float(NamedRegisters.STEP_Y.value)}")
+
+    # Clear selection
+    selection_complete = False
+
+    # Trigger recalculation and redraw
+    calc_and_redraw()
 
 
-# Updated usage functions for backward compatibility
+def mouse_callback(event, x, y, flags, param):
+    """Mouse callback for rectangle selection - improved version"""
+    global drawing, rect_start, rect_end, temp_img, data, selection_complete, rect_start, rect_end, current_left, current_up, current_xstep, current_ystep
+
+    if event == cv.EVENT_LBUTTONDOWN:
+        drawing = True
+        rect_start = (x, y)
+        rect_end = (x, y)
+        temp_img = data.copy()
+        selection_complete = False
+        print(f"Started rectangle at ({x}, {y})")
+
+    elif event == cv.EVENT_MOUSEMOVE:
+        if drawing and temp_img is not None:
+            temp_img = data.copy()
+            rect_end = (x, y)
+            # Draw rectangle on temporary image
+            cv.rectangle(temp_img, rect_start, rect_end, (255, 255, 255), 2)
+
+            # Add corner markers for better visibility
+            cv.circle(temp_img, rect_start, 3, (255, 255, 255), -1)
+            cv.circle(temp_img, rect_end, 3, (255, 255, 255), -1)
+
+    elif event == cv.EVENT_LBUTTONUP:
+        if drawing:
+            drawing = False
+            rect_end = (x, y)
+
+            # Only mark as complete if rectangle has meaningful size
+            width = abs(rect_end[0] - rect_start[0])
+            height = abs(rect_end[1] - rect_start[1])
+
+            if width >= 5 and height >= 5:
+                temp_img = data.copy()
+                cv.rectangle(temp_img, rect_start, rect_end, (255, 255, 255), 2)
+                cv.circle(temp_img, rect_start, 3, (255, 255, 255), -1)
+                cv.circle(temp_img, rect_end, 3, (255, 255, 255), -1)
+                selection_complete = True
+                print(
+                    f"Rectangle selected: ({rect_start[0]}, {rect_start[1]}) to ({rect_end[0]}, {rect_end[1]})"
+                )
+                print("Press 'z' to zoom into selected area or 'c' to cancel selection")
+
+                if not selection_complete:
+                    print("No rectangle selected!")
+                    return
+
+                # Ensure rectangle coordinates are valid
+                x1, y1 = rect_start
+                x2, y2 = rect_end
+
+                # Make sure we have proper min/max
+                if x1 > x2:
+                    x1, x2 = x2, x1
+                if y1 > y2:
+                    y1, y2 = y2, y1
+
+                # Prevent zero or negative width/height rectangles
+                if x2 - x1 < 5 or y2 - y1 < 5:
+                    print("Rectangle too small for meaningful zoom!")
+                    return
+
+                print(f"Rectangle pixels: ({x1}, {y1}) to ({x2}, {y2})")
+                print(
+                    f"Current view: left={float(current_left)}, up={float(current_up)}"
+                )
+                print(
+                    f"Current steps: x={float(current_xstep)}, y={float(current_ystep)}"
+                )
+
+                # Calculate the real-world coordinates of the rectangle
+                # The current view spans from current_left to (current_left + PIXELS_PER_LINE * current_xstep)
+                # and from current_up to (current_up - TOTAL_Y * current_ystep)
+
+                rect_left = float(current_left) - (x1 * float(current_xstep))
+                rect_right = float(current_left) - (x2 * float(current_xstep))
+                rect_top = float(current_up) - (
+                    y1 * float(current_ystep)
+                )  # y1 is top pixel
+                rect_bottom = float(current_up) - (
+                    y2 * float(current_ystep)
+                )  # y2 is bottom pixel
+
+                # Calculate new parameters
+                rect_width = abs(rect_right - rect_left)
+                rect_height = rect_top - rect_bottom
+                # Should be positive (top > bottom in mandelbrot coords)
+
+                print(
+                    f"Rectangle mandelbrot coords: left={rect_left}, right={rect_right}"
+                )
+                print(
+                    f"Rectangle mandelbrot coords: top={rect_top}, bottom={rect_bottom}"
+                )
+                print(f"Rectangle size: width={rect_width}, height={rect_height}")
+            else:
+                print("Rectangle too small - selection cancelled")
+                temp_img = None
+                selection_complete = False
+
+
+# Additional helper function to debug current view parameters
+def print_current_view():
+    """Print current view parameters for debugging"""
+    print("=== Current View Parameters ===")
+    print(f"Left: {float(current_left)}")
+    print(f"Up: {float(current_up)}")
+    print(f"X Step: {float(current_xstep)}")
+    print(f"Y Step: {float(current_ystep)}")
+    print(f"Right edge: {float(current_left) - PIXELS_PER_LINE * float(current_xstep)}")
+    print(f"Bottom edge: {float(current_up) - TOTAL_Y * float(current_ystep)}")
+    print(f"View width: {PIXELS_PER_LINE * float(current_xstep)}")
+    print(f"View height: {TOTAL_Y * float(current_ystep)}")
+    print("==============================")
+
+
+# Add hotkey for debugging (optional)
+kb.add_hotkey("p", lambda: print_current_view())
+
+
+def clear_selection():
+    """Clear the current rectangle selection"""
+    global selection_complete, temp_img
+    selection_complete = False
+    temp_img = None
+    print("Selection cleared")
+
+
+# Legacy functions for compatibility
 def receive_exact(sock, length):
-    """Legacy function - kept for compatibility"""
     client = MandelbrotStreamingClient(sock)
     return client.receive_exact(length)
 
 
 def get_line_streaming(sock, low_res: bool = False):
-    """New streaming version of get_line"""
     client = MandelbrotStreamingClient(sock)
-
     if low_res:
         return client.get_full_mandelbrot_stream(True)
     else:
@@ -296,83 +502,78 @@ def reset():
 
 
 def calculate():
+
+    send_float(0.0, NamedRegisters.CURRENT_Y.value)
+
+    print(
+        f"Current coordinates = {fetch_float(NamedRegisters.CURRENT_X.value)}, {fetch_float(NamedRegisters.CURRENT_Y.value)} "
+    )
+
     for socket in sockets:
         flush_socket_buffer(socket)
         socket.send("CALCE".encode())
 
-    time = time_ns()
-
+    time_start = time_ns()
     s.settimeout(100.0)
     msg = s.recv(32)
+    time_end = time_ns()
 
-    time2 = time_ns()
     print(msg.decode())
-    print(f"Took {(time2 - time) / 10 ** 9} seconds to calculate!")
+    print(f"Took {(time_end - time_start) / 10 ** 9} seconds to calculate!")
 
 
 def send_defaults():
-    send_float(-2, NamedRegisters.TOP_LEFT_X.value)
+    send_float(FP_NEG_TWO, NamedRegisters.TOP_LEFT_X.value)
     print(fetch_float(NamedRegisters.TOP_LEFT_X.value))
-    send_float(1, NamedRegisters.TOP_LEFT_Y.value)
+    send_float(FP_ONE, NamedRegisters.TOP_LEFT_Y.value)
     print(fetch_float(NamedRegisters.TOP_LEFT_Y.value))
-    send_float(-3 / PIXELS_PER_LINE, NamedRegisters.STEP_X.value)
+    send_float(FP_DEFAULT_XSTEP, NamedRegisters.STEP_X.value)
     print(fetch_float(NamedRegisters.STEP_X.value))
-    send_float(2 / TOTAL_Y, NamedRegisters.STEP_Y.value)
+    send_float(FP_DEFAULT_YSTEP, NamedRegisters.STEP_Y.value)
     print(fetch_float(NamedRegisters.STEP_Y.value))
-    send_float(0, NamedRegisters.CURRENT_X.value)
-    send_float(0, NamedRegisters.CURRENT_Y.value)
+    send_float(FP_ZERO, NamedRegisters.CURRENT_X.value)
+    send_float(FP_ZERO, NamedRegisters.CURRENT_Y.value)
 
 
 send_defaults()
 
-DEFAULT_CURRENT_LEFT = -2
-DEFAULT_CURRENT_UP = 1
-DEFALT_CURRENT_ZOOM = 1
-DEFAULT_XSTEP = -3 / PIXELS_PER_LINE
-DEFAULT_YSTEP = 2 / TOTAL_Y
-DEFAULT_STEPPING = 0.1
-
+# Initialize with proper FixedPoint constants
 data = np.zeros([TOTAL_Y, PIXELS_PER_LINE], np.uint8)
-
-current_left = DEFAULT_CURRENT_LEFT
-current_up = DEFAULT_CURRENT_UP
-current_zoom = DEFALT_CURRENT_ZOOM
-current_xstep = DEFAULT_XSTEP
-current_ystep = DEFAULT_YSTEP
-stepping_factor = DEFAULT_STEPPING
+current_left = FP_NEG_TWO
+current_up = FP_ONE
+current_xstep = FP_DEFAULT_XSTEP
+current_ystep = FP_DEFAULT_YSTEP
+stepping_factor = FP_STEPPING
 
 
 def increase_stepping_factor():
     global stepping_factor
-    stepping_factor *= 1.1
-    print(f"New stepping factor = {stepping_factor}")
+    stepping_factor = stepping_factor * FixedPoint(1.1, signed=True, m=12, n=52)
+    print(f"New stepping factor = {float(stepping_factor)}")
 
 
 def decrease_stepping_factor():
     global stepping_factor
-    stepping_factor *= 0.9
-    print(f"New stepping factor = {stepping_factor}")
+    stepping_factor = stepping_factor * FixedPoint(0.9, signed=True, m=12, n=52)
+    print(f"New stepping factor = {float(stepping_factor)}")
 
 
 def calc_and_redraw():
-    global data
-    send_float(0, NamedRegisters.CURRENT_X.value)
-    send_float(0, NamedRegisters.CURRENT_Y.value)
-    # calculate(True)
-    # data_low = get_line_streaming(s, True)
-    # data = data_low
-    # data = cv.resize(data_low, (PIXELS_PER_LINE, TOTAL_Y))
-    # data = data_low
-
+    global data, temp_img
+    send_float(0.0, NamedRegisters.CURRENT_X.value)
+    send_float(0.0, NamedRegisters.CURRENT_Y.value)
     calculate()
     new_data = get_line_streaming(s)
     data = np.zeros([TOTAL_Y, PIXELS_PER_LINE], np.uint8)
+    temp_img = None
     data = new_data
 
 
 def pan_left():
     global current_left, stepping_factor
-    current_left -= stepping_factor
+    current_left = FixedPoint(
+        float(current_left) - float(stepping_factor), signed=True, m=12, n=52
+    )
     send_float(current_left, NamedRegisters.TOP_LEFT_X.value)
     print(f"fetched left value = {fetch_float(NamedRegisters.TOP_LEFT_X.value)}")
     calc_and_redraw()
@@ -380,7 +581,9 @@ def pan_left():
 
 def pan_right():
     global current_left, stepping_factor
-    current_left += stepping_factor
+    current_left = FixedPoint(
+        float(current_left) + float(stepping_factor), signed=True, m=12, n=52
+    )
     send_float(current_left, NamedRegisters.TOP_LEFT_X.value)
     print(f"fetched left value = {fetch_float(NamedRegisters.TOP_LEFT_X.value)}")
     calc_and_redraw()
@@ -388,7 +591,9 @@ def pan_right():
 
 def pan_up():
     global current_up, stepping_factor
-    current_up += stepping_factor
+    current_up = FixedPoint(
+        float(current_up) + float(stepping_factor), signed=True, m=12, n=52
+    )
     send_float(current_up, NamedRegisters.TOP_LEFT_Y.value)
     print(f"fetched up value = {fetch_float(NamedRegisters.TOP_LEFT_Y.value)}")
     calc_and_redraw()
@@ -396,49 +601,44 @@ def pan_up():
 
 def pan_down():
     global current_up, stepping_factor
-    current_up -= stepping_factor
+    current_up = FixedPoint(
+        float(current_up) - float(stepping_factor), signed=True, m=12, n=52
+    )
     send_float(current_up, NamedRegisters.TOP_LEFT_Y.value)
     print(f"fetched up value = {fetch_float(NamedRegisters.TOP_LEFT_Y.value)}")
     calc_and_redraw()
 
 
 def zoom_in():
-    global current_zoom, current_xstep, current_ystep
-
-    current_zoom = 1.5
-    current_xstep /= current_zoom
-    current_ystep /= current_zoom
-
+    global current_xstep, current_ystep
+    current_xstep = FixedPoint(float(current_xstep) / 1.5, signed=True, m=12, n=52)
+    current_ystep = FixedPoint(float(current_ystep) / 1.5, signed=True, m=12, n=52)
     send_float(current_xstep, NamedRegisters.STEP_X.value)
     send_float(current_ystep, NamedRegisters.STEP_Y.value)
     calc_and_redraw()
 
 
 def zoom_out():
-    global current_zoom, current_xstep, current_ystep
-
-    current_zoom = 1.5
-    current_xstep /= current_zoom
-    current_ystep /= current_zoom
-
+    global current_xstep, current_ystep
+    current_xstep = FixedPoint(float(current_xstep) * 1.5, signed=True, m=12, n=52)
+    current_ystep = FixedPoint(float(current_ystep) * 1.5, signed=True, m=12, n=52)
     send_float(current_xstep, NamedRegisters.STEP_X.value)
     send_float(current_ystep, NamedRegisters.STEP_Y.value)
     calc_and_redraw()
 
 
 def reset_and_redraw():
-    global current_left, current_up, current_zoom, current_xstep, current_ystep, stepping_factor
-    current_left = DEFAULT_CURRENT_LEFT
-    current_up = DEFAULT_CURRENT_UP
-    current_zoom = DEFALT_CURRENT_ZOOM
-    current_xstep = DEFAULT_XSTEP
-    current_ystep = DEFAULT_YSTEP
-    stepping_factor = DEFAULT_STEPPING
-
+    global current_left, current_up, current_xstep, current_ystep, stepping_factor
+    current_left = FP_NEG_TWO
+    current_up = FP_ONE
+    current_xstep = FP_DEFAULT_XSTEP
+    current_ystep = FP_DEFAULT_YSTEP
+    stepping_factor = FP_STEPPING
     send_defaults()
     calc_and_redraw()
 
 
+# Keyboard shortcuts
 kb.add_hotkey("r", lambda: reset_and_redraw())
 kb.add_hotkey("a", lambda: pan_left())
 kb.add_hotkey("d", lambda: pan_right())
@@ -448,22 +648,31 @@ kb.add_hotkey("f", lambda: zoom_in())
 kb.add_hotkey("g", lambda: zoom_out())
 kb.add_hotkey("up", lambda: increase_stepping_factor())
 kb.add_hotkey("down", lambda: decrease_stepping_factor())
+kb.add_hotkey("z", lambda: zoom_to_rectangle())
+kb.add_hotkey("c", lambda: clear_selection())
+
+# Set up the window and mouse callback
+cv.namedWindow("Mandelbrot")
+cv.setMouseCallback("Mandelbrot", mouse_callback)
 
 calc_and_redraw()
 
+print("\nControls:")
+print("Mouse: Click and drag to select rectangle area")
+print("Z: Zoom into selected rectangle")
+print("C: Clear selection")
+print("WASD: Pan around")
+print("F/G: Zoom in/out")
+print("R: Reset to default view")
+print("Up/Down arrows: Adjust pan speed")
+print("Q: Quit")
+
 while True:
-    # Press Q on keyboard to  exit
-    # pylint:disable=E1101
+    # Show either the temp image (with rectangle) or the main data
+    display_img = temp_img if temp_img is not None else data
+    cv.imshow("Mandelbrot", display_img)
+
     if cv.waitKey(25) & 0xFF == ord("q"):
         break
-    cv.imshow("Mandelbrot", data)  # pylint:disable=E1101
 
-# pylint:disable=E1101
 cv.destroyAllWindows()
-
-
-# RENDER_NAME = "half_fast"
-
-# cv.imwrite(f'renders/{RENDER_NAME}.bmp', data)
-
-# img.save(f'renders/{RENDER_NAME}.bmp')
