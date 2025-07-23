@@ -509,7 +509,11 @@ def reset():
         socket.send("RESET".encode())
 
 
+total_time = 0.0
+
+
 def calculate():
+    global total_time
 
     send_float(0.0, NamedRegisters.CURRENT_Y.value)
 
@@ -527,7 +531,8 @@ def calculate():
     time_end = time_ns()
 
     print(msg.decode())
-    print(f"Took {(time_end - time_start) / 10 ** 9} seconds to calculate!")
+    total_time = (time_end - time_start) / 10**9
+    # print(f"Took {total_time} seconds to calculate!")
 
 
 def send_defaults():
@@ -555,11 +560,19 @@ stepping_factor = FP_STEPPING
 
 
 def calc_and_redraw():
-    global data, temp_img
+    global data, temp_img, total_time
     send_float(0.0, NamedRegisters.CURRENT_X.value)
     send_float(0.0, NamedRegisters.CURRENT_Y.value)
     calculate()
     new_data = get_line_streaming(s)
+
+    total_iterations = np.sum(new_data)
+
+    print(
+        f"Took {total_time} to calculate {total_iterations} iterations. Iteration calculation rate = {total_iterations / total_time} iters/s"
+    )
+    print(f"Time per pixel = {total_time / (PIXELS_PER_LINE * TOTAL_Y)}")
+
     data = np.zeros([new_data.shape[0], new_data.shape[1], 3], np.uint8)
     temp_img = None
 
