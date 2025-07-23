@@ -30,6 +30,7 @@ DEFAULT_XSTEP = -3 / PIXELS_PER_LINE
 DEFAULT_YSTEP = 2 / TOTAL_Y
 DEFAULT_STEPPING = 0.1
 
+
 # Pre-calculated FixedPoint constants
 FP_NEG_TWO = FixedPoint(DEFAULT_LEFT, signed=True, m=12, n=52)
 FP_ONE = FixedPoint(DEFAULT_UP, signed=True, m=12, n=52)
@@ -66,6 +67,8 @@ selection_complete = False
 # colour vars
 
 colour_r, colour_g, colour_b = 0, 215, 255
+
+MAX_COLOUR = (255, 255, 255)
 
 
 class MandelbrotStreamingClient:
@@ -561,9 +564,7 @@ def calc_and_redraw():
     temp_img = None
 
     # Define special color for maximum values (255)
-    max_value_color_r = 0  # Red component for value 255
-    max_value_color_g = 0  # Green component for value 255
-    max_value_color_b = 0  # Blue component for value 255 (white)
+    max_value_color_r, max_value_color_g, max_value_color_b = MAX_COLOUR
 
     # Create masks for different value ranges
     max_mask = new_data == 255
