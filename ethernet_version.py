@@ -63,6 +63,10 @@ rect_end = (-1, -1)
 temp_img = None
 selection_complete = False
 
+# colour vars
+
+colour_r, colour_g, colour_b = 0, 215, 255
+
 
 class MandelbrotStreamingClient:
     def __init__(self, socket_obj):
@@ -553,9 +557,39 @@ def calc_and_redraw():
     send_float(0.0, NamedRegisters.CURRENT_Y.value)
     calculate()
     new_data = get_line_streaming(s)
-    data = np.zeros([TOTAL_Y, PIXELS_PER_LINE], np.uint8)
+    data = np.zeros([new_data.shape[0], new_data.shape[1], 3], np.uint8)
     temp_img = None
-    data = new_data
+
+    # Define special color for maximum values (255)
+    max_value_color_r = 0  # Red component for value 255
+    max_value_color_g = 0  # Green component for value 255
+    max_value_color_b = 0  # Blue component for value 255 (white)
+
+    # Create masks for different value ranges
+    max_mask = new_data == 255
+    normal_mask = new_data < 255
+
+    # For values 0-254: interpolate between 0 and the target color
+    normalized_data = (
+        new_data.astype(np.float32) / 254.0
+    )  # Normalize to [0,1] for range 0-254
+    normalized_data = np.clip(normalized_data, 0, 1)  # Ensure we don't exceed 1
+
+    # Apply normal color mapping for values < 255
+    data[normal_mask, 0] = (normalized_data[normal_mask] * colour_b).astype(
+        np.uint8
+    )  # Blue
+    data[normal_mask, 1] = (normalized_data[normal_mask] * colour_g).astype(
+        np.uint8
+    )  # Green
+    data[normal_mask, 2] = (normalized_data[normal_mask] * colour_r).astype(
+        np.uint8
+    )  # Red
+
+    # Apply special color for maximum values (255)
+    data[max_mask, 0] = max_value_color_b  # Blue channel
+    data[max_mask, 1] = max_value_color_g  # Green channel
+    data[max_mask, 2] = max_value_color_r  # Red channel
 
 
 def pan_left():
@@ -627,16 +661,61 @@ def reset_and_redraw():
     calc_and_redraw()
 
 
+current_colour = 0
+
+
+def increase_colour():
+    global colour_r, colour_g, colour_b
+    if current_colour == 0:
+        if colour_r < 255:
+            colour_r += 1
+    elif current_colour == 1:
+        if colour_g < 255:
+            colour_g += 1
+    elif current_colour == 2:
+        if colour_b < 255:
+            colour_b += 1
+
+
+def decrease_colour():
+    global colour_r, colour_g, colour_b
+    if current_colour == 0:
+        if colour_r > 0:
+            colour_r -= 1
+    elif current_colour == 1:
+        if colour_g > 0:
+            colour_g -= 1
+    elif current_colour == 2:
+        if colour_b > 0:
+            colour_b -= 1
+
+
+def increment_current_colour():
+    global current_colour
+    current_colour += 1
+    if current_colour > 2:
+        current_colour = 0
+
+
+def decrement_current_colour():
+    global current_colour
+    current_colour -= 1
+    if current_colour < 0:
+        current_colour = 2
+
+
 # Keyboard shortcuts
 kb.add_hotkey("r", lambda: reset_and_redraw())
-kb.add_hotkey("a", lambda: pan_left())
-kb.add_hotkey("d", lambda: pan_right())
-kb.add_hotkey("w", lambda: pan_up())
-kb.add_hotkey("s", lambda: pan_down())
-kb.add_hotkey("f", lambda: zoom_in())
-kb.add_hotkey("g", lambda: zoom_out())
-# kb.add_hotkey("up", lambda: increase_stepping_factor())
-# kb.add_hotkey("down", lambda: decrease_stepping_factor())
+# kb.add_hotkey("a", lambda: pan_left())
+# kb.add_hotkey("d", lambda: pan_right())
+# kb.add_hotkey("w", lambda: pan_up())
+# kb.add_hotkey("s", lambda: pan_down())
+# kb.add_hotkey("f", lambda: zoom_in())
+# kb.add_hotkey("g", lambda: zoom_out())
+kb.add_hotkey("up", lambda: increase_colour())
+kb.add_hotkey("down", lambda: decrease_colour())
+kb.add_hotkey("left", lambda: decrement_current_colour())
+kb.add_hotkey("right", lambda: increment_current_colour())
 kb.add_hotkey("z", lambda: zoom_to_rectangle())
 kb.add_hotkey("c", lambda: clear_selection())
 
