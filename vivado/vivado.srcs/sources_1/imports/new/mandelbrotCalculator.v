@@ -54,13 +54,8 @@ module mandelbrotCalculator(
                 FINAL = 3;
     
     wire signed [63:0] temp;
-    reg signed [63:0] temp2;
-//    reg [127:0] debug_out;
-    
+    reg signed [63:0] temp2;    
     reg [4:0] multiplication_reg;
-    
-//    wire signed [63:0] multi_input_1 = (calc_state == WAIT_FOR_TEMP) ? zIm : zRe;
-
     
     mult_gen_0 ZRE_SQUARER(
         .CLK(mandelclock),
@@ -68,7 +63,6 @@ module mandelbrotCalculator(
         .B(zRe),
         .P(zReSquared)
     );
-    
     
     mult_gen_0 ZIM_SQUARER(
         .CLK(mandelclock),
@@ -93,7 +87,6 @@ module mandelbrotCalculator(
         if(rst) begin
             finished <= 0;
             iterCount <= 0;
-//            debug_out <= 64'h0000000000001111;
             zIm <= 64'h0000000000000000;
             zRe <= 64'h0000000000000000;
             multiplication_reg <= 0;
@@ -133,24 +126,7 @@ module mandelbrotCalculator(
                             calc_state <= WAIT_FOR_SQUARES;
                         end
                     end
-                endcase                
-                
-                
-//                OG CODE:
-//                zReSquaredIntermediate = (zRe * zRe) >> 52; // zRe ^ 2
-//                zImSquaredIntermediate = (zIm * zIm) >> 52; // zIm ^ 2\
-//                zReSquared = zReSquaredIntermediate[63:0];
-//                zImSquared = zImSquaredIntermediate[63:0];
-//                temp = (zRe * zIm) >> 52; // zRe * zIm
-//                temp2 = zReSquared + zImSquared; // zRe ^ 2 + zIm ^ 2 
-//                // zRe ^ 2 - zIm ^ 2 + cRe
-//                zRe <= zReSquared[63:0] + (~(zImSquared[63:0]) + 1) + cRe; // convert to two's compleMENT
-//                // 2 * zRe * zIm + cIm = zRe * zIm + zRe * zIm + cIm
-//                zIm <= (temp[63:0]) + cIm + (temp[63:0]); // convoluted way of writing 2 * zRe zIm + cIm
-////                debug_out <= temp2[63:0];
-                
-                
-                        
+                endcase                          
            end
     end
     
