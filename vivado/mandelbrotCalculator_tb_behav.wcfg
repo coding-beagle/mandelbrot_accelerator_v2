@@ -12,14 +12,14 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="1,256.001 ns"></ZoomEndTime>
-      <Cursor1Time time="1,000.000 ns"></Cursor1Time>
+      <ZoomEndTime time="78.801 ns"></ZoomEndTime>
+      <Cursor1Time time="23.200 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="185"></NameColumnWidth>
-      <ValueColumnWidth column_width="66"></ValueColumnWidth>
+      <ValueColumnWidth column_width="58"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="9" />
+   <WVObjectSize size="13" />
    <wvobject fp_name="/mandelbrotCalculator_tb/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -31,26 +31,10 @@
    <wvobject fp_name="/mandelbrotCalculator_tb/pixel_x" type="array">
       <obj_property name="ElementShortName">pixel_x[63:0]</obj_property>
       <obj_property name="ObjectShortName">pixel_x[63:0]</obj_property>
-      <obj_property name="Radix">REALRADIX</obj_property>
-      <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
-      <obj_property name="radix_fractionWidth">52</obj_property>
-      <obj_property name="radix_otherWidth">0</obj_property>
    </wvobject>
    <wvobject fp_name="/mandelbrotCalculator_tb/pixel_y" type="array">
       <obj_property name="ElementShortName">pixel_y[63:0]</obj_property>
       <obj_property name="ObjectShortName">pixel_y[63:0]</obj_property>
-      <obj_property name="Radix">REALRADIX</obj_property>
-      <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
-      <obj_property name="radix_fractionWidth">52</obj_property>
-      <obj_property name="radix_otherWidth">0</obj_property>
-   </wvobject>
-   <wvobject fp_name="/mandelbrotCalculator_tb/DUT/temp2" type="array">
-      <obj_property name="ElementShortName">temp2[63:0]</obj_property>
-      <obj_property name="ObjectShortName">temp2[63:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/mandelbrotCalculator_tb/DUT/temp" type="array">
-      <obj_property name="ElementShortName">temp[63:0]</obj_property>
-      <obj_property name="ObjectShortName">temp[63:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/mandelbrotCalculator_tb/finished_up_bruv" type="logic">
       <obj_property name="ElementShortName">finished_up_bruv</obj_property>
@@ -59,9 +43,34 @@
    <wvobject fp_name="/mandelbrotCalculator_tb/iter_count" type="array">
       <obj_property name="ElementShortName">iter_count[7:0]</obj_property>
       <obj_property name="ObjectShortName">iter_count[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/mandelbrotCalculator_tb/clock_period" type="array">
-      <obj_property name="ElementShortName">clock_period[31:0]</obj_property>
-      <obj_property name="ObjectShortName">clock_period[31:0]</obj_property>
+   <wvobject fp_name="/mandelbrotCalculator_tb/expected_iter" type="array">
+      <obj_property name="ElementShortName">expected_iter[31:0]</obj_property>
+      <obj_property name="ObjectShortName">expected_iter[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrotCalculator_tb/DUT/zReSquarerIn" type="array">
+      <obj_property name="ElementShortName">zReSquarerIn[63:0]</obj_property>
+      <obj_property name="ObjectShortName">zReSquarerIn[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrotCalculator_tb/DUT/zImSquarerIn" type="array">
+      <obj_property name="ElementShortName">zImSquarerIn[63:0]</obj_property>
+      <obj_property name="ObjectShortName">zImSquarerIn[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrotCalculator_tb/DUT/zProductReIn" type="array">
+      <obj_property name="ElementShortName">zProductReIn[63:0]</obj_property>
+      <obj_property name="ObjectShortName">zProductReIn[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrotCalculator_tb/DUT/zProductImIn" type="array">
+      <obj_property name="ElementShortName">zProductImIn[63:0]</obj_property>
+      <obj_property name="ObjectShortName">zProductImIn[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrotCalculator_tb/DUT/zRe" type="array">
+      <obj_property name="ElementShortName">zRe[63:0]</obj_property>
+      <obj_property name="ObjectShortName">zRe[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mandelbrotCalculator_tb/DUT/zIm" type="array">
+      <obj_property name="ElementShortName">zIm[63:0]</obj_property>
+      <obj_property name="ObjectShortName">zIm[63:0]</obj_property>
    </wvobject>
 </wave_config>

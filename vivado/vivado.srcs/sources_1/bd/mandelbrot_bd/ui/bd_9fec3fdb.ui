@@ -3,86 +3,83 @@
    "Default View_ScaleFactor":"0.750061",
    "Default View_TopLeft":"288,509",
    "ExpandedHierarchyInLayout":"",
-   "guistr":"# # String gsaved with Nlview 7.8.0 2024-04-26 e1825d835c VDI=44 GEI=38 GUI=JA:21.0 threadsafe
+   "guistr":"# # String gsaved with Nlview 7.8.0 2024-04-26 e1825d835c VDI=44 GEI=38 GUI=JA:21.0
 #  -string -flagsOSRD
-preplace port DDR -pg 1 -lvl 8 -x 2340 -y 1110 -defaultsOSRD
-preplace port FIXED_IO -pg 1 -lvl 8 -x 2340 -y 1130 -defaultsOSRD
+preplace port DDR -pg 1 -lvl 8 -x 2400 -y 1110 -defaultsOSRD
+preplace port FIXED_IO -pg 1 -lvl 8 -x 2400 -y 1130 -defaultsOSRD
 preplace port port-id_sys_clock -pg 1 -lvl 0 -x 0 -y 1330 -defaultsOSRD
 preplace inst processing_system7_0 -pg 1 -lvl 1 -x 240 -y 1190 -defaultsOSRD
 preplace inst STEP_X -pg 1 -lvl 3 -x 990 -y 90 -defaultsOSRD
-preplace inst complexMapper_0 -pg 1 -lvl 5 -x 1560 -y 1250 -defaultsOSRD
-preplace inst clk_wiz_0 -pg 1 -lvl 4 -x 1260 -y 1340 -defaultsOSRD
+preplace inst complexMapper_0 -pg 1 -lvl 5 -x 1600 -y 1250 -defaultsOSRD
+preplace inst clk_wiz_0 -pg 1 -lvl 4 -x 1280 -y 1340 -defaultsOSRD
 preplace inst axi_smc -pg 1 -lvl 2 -x 630 -y 950 -defaultsOSRD
 preplace inst rst_ps7_0_100M -pg 1 -lvl 1 -x 240 -y 940 -defaultsOSRD
-preplace inst xlconcat_0 -pg 1 -lvl 4 -x 1260 -y 110 -defaultsOSRD
+preplace inst xlconcat_0 -pg 1 -lvl 4 -x 1280 -y 110 -defaultsOSRD
 preplace inst STEP_Y -pg 1 -lvl 3 -x 990 -y 250 -defaultsOSRD
-preplace inst xlconcat_1 -pg 1 -lvl 4 -x 1260 -y 270 -defaultsOSRD
+preplace inst xlconcat_1 -pg 1 -lvl 4 -x 1280 -y 270 -defaultsOSRD
 preplace inst TOP_LEFT_X -pg 1 -lvl 3 -x 990 -y 410 -defaultsOSRD
-preplace inst xlconcat_2 -pg 1 -lvl 4 -x 1260 -y 430 -defaultsOSRD
+preplace inst xlconcat_2 -pg 1 -lvl 4 -x 1280 -y 430 -defaultsOSRD
 preplace inst TOP_LEFT_Y -pg 1 -lvl 3 -x 990 -y 570 -defaultsOSRD
-preplace inst xlconcat_3 -pg 1 -lvl 4 -x 1260 -y 590 -defaultsOSRD
+preplace inst xlconcat_3 -pg 1 -lvl 4 -x 1280 -y 590 -defaultsOSRD
 preplace inst PIXEL_X -pg 1 -lvl 3 -x 990 -y 730 -defaultsOSRD
-preplace inst xlconcat_4 -pg 1 -lvl 4 -x 1260 -y 750 -defaultsOSRD
+preplace inst xlconcat_4 -pg 1 -lvl 4 -x 1280 -y 750 -defaultsOSRD
 preplace inst PIXEL_Y -pg 1 -lvl 3 -x 990 -y 1030 -defaultsOSRD
-preplace inst xlconcat_5 -pg 1 -lvl 4 -x 1260 -y 1200 -defaultsOSRD
-preplace inst mandelbrotCalculator_0 -pg 1 -lvl 6 -x 1930 -y 1020 -defaultsOSRD
+preplace inst xlconcat_5 -pg 1 -lvl 4 -x 1280 -y 1200 -defaultsOSRD
+preplace inst mandelbrotCalculator_0 -pg 1 -lvl 6 -x 1970 -y 1020 -defaultsOSRD
 preplace inst START_MANDELBROT -pg 1 -lvl 3 -x 990 -y 1370 -defaultsOSRD
-preplace inst xlconcat_6 -pg 1 -lvl 7 -x 2210 -y 1050 -defaultsOSRD
+preplace inst xlconcat_6 -pg 1 -lvl 7 -x 2260 -y 1050 -defaultsOSRD
 preplace inst MANDELBROT_0 -pg 1 -lvl 3 -x 990 -y 880 -defaultsOSRD
-preplace inst mandelbrotCalculator_1 -pg 1 -lvl 6 -x 1930 -y 1220 -defaultsOSRD
-preplace inst mandelbrotCalculator_2 -pg 1 -lvl 6 -x 1930 -y 1400 -defaultsOSRD
-preplace inst mandelbrotCalculator_3 -pg 1 -lvl 6 -x 1930 -y 1560 -defaultsOSRD
+preplace inst mandelbrotCalculator_1 -pg 1 -lvl 6 -x 1970 -y 1220 -defaultsOSRD
+preplace inst mandelbrotCalculator_2 -pg 1 -lvl 6 -x 1970 -y 1400 -defaultsOSRD
+preplace inst mandelbrotCalculator_3 -pg 1 -lvl 6 -x 1970 -y 1560 -defaultsOSRD
 preplace inst MANDELBROT_1 -pg 1 -lvl 3 -x 990 -y 1210 -defaultsOSRD
-preplace inst xlconcat_7 -pg 1 -lvl 7 -x 2210 -y 1240 -defaultsOSRD
+preplace inst xlconcat_7 -pg 1 -lvl 7 -x 2260 -y 1240 -defaultsOSRD
 preplace inst MANDELBROT_2 -pg 1 -lvl 3 -x 990 -y 1510 -defaultsOSRD
-preplace inst xlconcat_8 -pg 1 -lvl 7 -x 2210 -y 1420 -defaultsOSRD
+preplace inst xlconcat_8 -pg 1 -lvl 7 -x 2260 -y 1420 -defaultsOSRD
 preplace inst MANDELBROT_3 -pg 1 -lvl 3 -x 990 -y 1650 -defaultsOSRD
-preplace inst xlconcat_9 -pg 1 -lvl 7 -x 2210 -y 1580 -defaultsOSRD
+preplace inst xlconcat_9 -pg 1 -lvl 7 -x 2260 -y 1580 -defaultsOSRD
+preplace netloc START_MANDELBROT_gpio_io_o 1 3 3 1160J 1410 NJ 1410 1780
+preplace netloc axi_gpio_0_gpio2_io_o 1 3 1 N 120
+preplace netloc axi_gpio_0_gpio2_io_o1 1 3 1 N 280
+preplace netloc axi_gpio_0_gpio2_io_o2 1 3 1 N 440
+preplace netloc axi_gpio_0_gpio2_io_o3 1 3 1 N 600
+preplace netloc axi_gpio_0_gpio2_io_o4 1 3 1 N 760
+preplace netloc axi_gpio_0_gpio2_io_o5 1 3 1 1130 1060n
+preplace netloc axi_gpio_0_gpio_io_o 1 3 1 1130 80n
+preplace netloc axi_gpio_0_gpio_io_o1 1 3 1 1130 240n
+preplace netloc axi_gpio_0_gpio_io_o2 1 3 1 1130 400n
+preplace netloc axi_gpio_0_gpio_io_o3 1 3 1 1130 560n
+preplace netloc axi_gpio_0_gpio_io_o4 1 3 1 1130 720n
+preplace netloc axi_gpio_0_gpio_io_o5 1 3 1 1140 1020n
+preplace netloc clk_wiz_0_clk_out150 1 4 2 1440J 1370 1810
+preplace netloc clk_wiz_0_clk_out200 1 4 1 1410 1190n
+preplace netloc complexMapper_0_outIm 1 5 1 1790 1050n
+preplace netloc complexMapper_0_outRe1 1 5 1 1750 1030n
+preplace netloc complexMapper_0_outRe2 1 5 1 1800 1230n
+preplace netloc complexMapper_0_outRe3 1 5 1 1800 1270n
+preplace netloc complexMapper_0_outRe4 1 5 1 1750 1290n
+preplace netloc mandelbrotCalculator_0_finishedFlag 1 6 1 2140 1010n
+preplace netloc mandelbrotCalculator_0_iterationCount 1 6 1 2130 1030n
+preplace netloc mandelbrotCalculator_1_finishedFlag 1 6 1 2140 1210n
+preplace netloc mandelbrotCalculator_1_iterationCount 1 6 1 N 1230
+preplace netloc mandelbrotCalculator_2_finishedFlag 1 6 1 2130 1390n
+preplace netloc mandelbrotCalculator_2_iterationCount 1 6 1 N 1410
+preplace netloc mandelbrotCalculator_3_finishedFlag 1 6 1 2140 1550n
+preplace netloc mandelbrotCalculator_3_iterationCount 1 6 1 N 1570
 preplace netloc processing_system7_0_FCLK_CLK0 1 0 3 20 1040 480 1140 810
 preplace netloc processing_system7_0_FCLK_RESET0_N 1 0 2 30 1050 450
 preplace netloc rst_ps7_0_100M_peripheral_aresetn 1 1 2 490 1110 820
 preplace netloc sys_clock_1 1 0 4 NJ 1330 490J 1290 NJ 1290 1130J
-preplace netloc axi_gpio_0_gpio_io_o 1 3 1 1130 80n
-preplace netloc axi_gpio_0_gpio2_io_o 1 3 1 N 120
-preplace netloc xlconcat_0_dout 1 4 1 1420 110n
-preplace netloc axi_gpio_0_gpio2_io_o1 1 3 1 N 280
-preplace netloc axi_gpio_0_gpio_io_o1 1 3 1 1130 240n
-preplace netloc xlconcat_1_dout 1 4 1 1410 270n
-preplace netloc axi_gpio_0_gpio2_io_o2 1 3 1 N 440
-preplace netloc axi_gpio_0_gpio_io_o2 1 3 1 1130 400n
-preplace netloc xlconcat_2_dout 1 4 1 1400 430n
-preplace netloc axi_gpio_0_gpio2_io_o3 1 3 1 N 600
-preplace netloc axi_gpio_0_gpio_io_o3 1 3 1 1130 560n
-preplace netloc xlconcat_3_dout 1 4 1 1380 590n
-preplace netloc axi_gpio_0_gpio2_io_o4 1 3 1 N 760
-preplace netloc axi_gpio_0_gpio_io_o4 1 3 1 1130 720n
-preplace netloc xlconcat_4_dout 1 4 1 1370 750n
-preplace netloc axi_gpio_0_gpio2_io_o5 1 3 1 1130 1060n
-preplace netloc axi_gpio_0_gpio_io_o5 1 3 1 1140 1020n
-preplace netloc xlconcat_5_dout 1 4 1 1360 1200n
-preplace netloc clk_wiz_0_clk_out200 1 4 1 1390 1190n
-preplace netloc clk_wiz_0_clk_out150 1 4 2 1420J 1370 1770
-preplace netloc complexMapper_0_outRe1 1 5 1 1710 1030n
-preplace netloc complexMapper_0_outIm 1 5 1 1750 1050n
-preplace netloc START_MANDELBROT_gpio_io_o 1 3 3 1160J 1410 NJ 1410 1740
-preplace netloc mandelbrotCalculator_0_iterationCount 1 6 1 2090 1030n
-preplace netloc mandelbrotCalculator_0_finishedFlag 1 6 1 2100 1010n
-preplace netloc xlconcat_6_dout 1 3 5 NJ 890 NJ 890 NJ 890 NJ 890 2320
-preplace netloc complexMapper_0_outRe4 1 5 1 1710 1290n
-preplace netloc complexMapper_0_outRe3 1 5 1 1760 1270n
-preplace netloc complexMapper_0_outRe2 1 5 1 1760 1230n
-preplace netloc xlconcat_6_dout1 1 3 5 1160 1130 NJ 1130 NJ 1130 2090J 1140 2320
-preplace netloc xlconcat_6_dout2 1 3 5 NJ 1520 NJ 1520 1700J 1650 NJ 1650 2320
-preplace netloc xlconcat_6_dout3 1 3 5 NJ 1660 NJ 1660 NJ 1660 NJ 1660 2310
-preplace netloc mandelbrotCalculator_3_finishedFlag 1 6 1 2100 1550n
-preplace netloc mandelbrotCalculator_3_iterationCount 1 6 1 N 1570
-preplace netloc mandelbrotCalculator_2_finishedFlag 1 6 1 2090 1390n
-preplace netloc mandelbrotCalculator_2_iterationCount 1 6 1 N 1410
-preplace netloc mandelbrotCalculator_1_iterationCount 1 6 1 N 1230
-preplace netloc mandelbrotCalculator_1_finishedFlag 1 6 1 2100 1210n
-preplace netloc processing_system7_0_DDR 1 1 7 470J 1120 NJ 1120 NJ 1120 NJ 1120 NJ 1120 NJ 1120 2320J
-preplace netloc processing_system7_0_FIXED_IO 1 1 7 NJ 1130 NJ 1130 1150J 1110 NJ 1110 NJ 1110 2100J 1130 NJ
-preplace netloc processing_system7_0_M_AXI_GP0 1 1 1 460 930n
+preplace netloc xlconcat_0_dout 1 4 1 1440 110n
+preplace netloc xlconcat_1_dout 1 4 1 1430 270n
+preplace netloc xlconcat_2_dout 1 4 1 1420 430n
+preplace netloc xlconcat_3_dout 1 4 1 1400 590n
+preplace netloc xlconcat_4_dout 1 4 1 1390 750n
+preplace netloc xlconcat_5_dout 1 4 1 1380 1200n
+preplace netloc xlconcat_6_dout 1 3 5 NJ 890 NJ 890 NJ 890 NJ 890 2370
+preplace netloc xlconcat_6_dout1 1 3 5 1160 1130 NJ 1130 NJ 1130 2130J 1140 2370
+preplace netloc xlconcat_6_dout2 1 3 5 NJ 1520 NJ 1520 1740J 1650 NJ 1650 2370
+preplace netloc xlconcat_6_dout3 1 3 5 NJ 1660 NJ 1660 NJ 1660 NJ 1660 2360
 preplace netloc axi_smc_M00_AXI 1 2 1 770 70n
 preplace netloc axi_smc_M01_AXI 1 2 1 800 710n
 preplace netloc axi_smc_M02_AXI 1 2 1 840 890n
@@ -94,8 +91,11 @@ preplace netloc axi_smc_M07_AXI 1 2 1 800 990n
 preplace netloc axi_smc_M08_AXI 1 2 1 790 1010n
 preplace netloc axi_smc_M09_AXI 1 2 1 780 1030n
 preplace netloc axi_smc_M10_AXI 1 2 1 770 1050n
-levelinfo -pg 1 0 240 630 990 1260 1560 1930 2210 2340
-pagesize -pg 1 -db -bbox -sgen -120 0 2460 1730
+preplace netloc processing_system7_0_DDR 1 1 7 470J 1120 NJ 1120 NJ 1120 NJ 1120 NJ 1120 NJ 1120 2370J
+preplace netloc processing_system7_0_FIXED_IO 1 1 7 NJ 1130 NJ 1130 1150J 1110 NJ 1110 NJ 1110 2140J 1130 NJ
+preplace netloc processing_system7_0_M_AXI_GP0 1 1 1 460 930n
+levelinfo -pg 1 0 240 630 990 1280 1600 1970 2260 2400
+pagesize -pg 1 -db -bbox -sgen -120 0 2520 1730
 "
 }
 {

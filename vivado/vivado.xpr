@@ -60,20 +60,20 @@
     <Option Name="IPStaticSourceDir" Val="$PIPUSERFILESDIR/ipstatic"/>
     <Option Name="EnableBDX" Val="FALSE"/>
     <Option Name="DSABoardId" Val="pynq-z2"/>
-    <Option Name="WTXSimLaunchSim" Val="11"/>
+    <Option Name="WTXSimLaunchSim" Val="32"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
     <Option Name="WTVcsLaunchSim" Val="0"/>
     <Option Name="WTRivieraLaunchSim" Val="0"/>
     <Option Name="WTActivehdlLaunchSim" Val="0"/>
-    <Option Name="WTXSimExportSim" Val="10"/>
-    <Option Name="WTModelSimExportSim" Val="10"/>
-    <Option Name="WTQuestaExportSim" Val="10"/>
+    <Option Name="WTXSimExportSim" Val="11"/>
+    <Option Name="WTModelSimExportSim" Val="11"/>
+    <Option Name="WTQuestaExportSim" Val="11"/>
     <Option Name="WTIesExportSim" Val="0"/>
     <Option Name="WTVcsExportSim" Val="0"/>
-    <Option Name="WTRivieraExportSim" Val="10"/>
-    <Option Name="WTActivehdlExportSim" Val="10"/>
+    <Option Name="WTRivieraExportSim" Val="11"/>
+    <Option Name="WTActivehdlExportSim" Val="11"/>
     <Option Name="GenerateIPUpgradeLog" Val="TRUE"/>
     <Option Name="XSimRadix" Val="hex"/>
     <Option Name="XSimTimeUnit" Val="ns"/>
@@ -168,18 +168,6 @@
         <CompFileExtendedInfo CompFileName="mandelbrot_bd.bd" FileRelPathName="ip/mandelbrot_bd_complexMapper_0_0/mandelbrot_bd_complexMapper_0_0.xci">
           <Proxy FileSetName="mandelbrot_bd_complexMapper_0_0"/>
         </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="mandelbrot_bd.bd" FileRelPathName="ip/mandelbrot_bd_mandelbrotCalculator_0_0/mandelbrot_bd_mandelbrotCalculator_0_0.xci">
-          <Proxy FileSetName="mandelbrot_bd_mandelbrotCalculator_0_0"/>
-        </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="mandelbrot_bd.bd" FileRelPathName="ip/mandelbrot_bd_mandelbrotCalculator_0_1/mandelbrot_bd_mandelbrotCalculator_0_1.xci">
-          <Proxy FileSetName="mandelbrot_bd_mandelbrotCalculator_0_1"/>
-        </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="mandelbrot_bd.bd" FileRelPathName="ip/mandelbrot_bd_mandelbrotCalculator_0_2/mandelbrot_bd_mandelbrotCalculator_0_2.xci">
-          <Proxy FileSetName="mandelbrot_bd_mandelbrotCalculator_0_2"/>
-        </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="mandelbrot_bd.bd" FileRelPathName="ip/mandelbrot_bd_mandelbrotCalculator_0_3/mandelbrot_bd_mandelbrotCalculator_0_3.xci">
-          <Proxy FileSetName="mandelbrot_bd_mandelbrotCalculator_0_3"/>
-        </CompFileExtendedInfo>
         <CompFileExtendedInfo CompFileName="mandelbrot_bd.bd" FileRelPathName="ip/mandelbrot_bd_processing_system7_0_0/mandelbrot_bd_processing_system7_0_0.xci">
           <Proxy FileSetName="mandelbrot_bd_processing_system7_0_0"/>
         </CompFileExtendedInfo>
@@ -214,6 +202,7 @@
       </Config>
     </FileSet>
     <FileSet Name="sim_1" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/sim_1" RelGenDir="$PGENDIR/sim_1">
+      <Filter Type="Srcs"/>
       <File Path="$PSRCDIR/sim_1/imports/project_1.srcs/sources_1/imports/sources_1/new/poweronreset.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
@@ -329,12 +318,6 @@
         <Option Name="UseBlackboxStub" Val="1"/>
       </Config>
     </FileSet>
-    <FileSet Name="mandelbrot_bd_complexMapper_0_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/mandelbrot_bd_complexMapper_0_0" RelGenDir="$PGENDIR/mandelbrot_bd_complexMapper_0_0">
-      <Config>
-        <Option Name="TopModule" Val="mandelbrot_bd_complexMapper_0_0"/>
-        <Option Name="UseBlackboxStub" Val="1"/>
-      </Config>
-    </FileSet>
     <FileSet Name="mandelbrot_bd_axi_gpio_0_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/mandelbrot_bd_axi_gpio_0_0" RelGenDir="$PGENDIR/mandelbrot_bd_axi_gpio_0_0">
       <Config>
         <Option Name="TopModule" Val="mandelbrot_bd_axi_gpio_0_0"/>
@@ -372,6 +355,7 @@
       </Config>
     </FileSet>
     <FileSet Name="calc_tb" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/calc_tb" RelGenDir="$PGENDIR/calc_tb">
+      <Filter Type="Srcs"/>
       <File Path="$PSRCDIR/sim_1/imports/project_1.srcs/calculator_tb/imports/new/mandelbrotCalculator_tb.sv">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../mandelbrot_the_final/mandelbrotting.srcs/sources_1/imports/project_1.srcs/calculator_tb/imports/new/mandelbrotCalculator_tb.sv"/>
@@ -399,33 +383,17 @@
         <Option Name="PamPseudoTop" Val="pseudo_tb"/>
         <Option Name="SrcSet" Val="sources_1"/>
         <Option Name="XSimWcfgFile" Val="$PPRDIR/mandelbrotCalculator_tb_behav.wcfg"/>
+        <Option Name="XSimWcfgFile" Val="$PPRDIR/mandelbrotCalculator_tb_behav.wcfg"/>
         <Option Name="CosimPdi" Val=""/>
         <Option Name="CosimPlatform" Val=""/>
         <Option Name="CosimElf" Val=""/>
         <Option Name="Dmv" Val=""/>
+        <Option Name="xsim.simulate.runtime" Val="4000ns"/>
       </Config>
     </FileSet>
-    <FileSet Name="mandelbrot_bd_mandelbrotCalculator_0_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/mandelbrot_bd_mandelbrotCalculator_0_0" RelGenDir="$PGENDIR/mandelbrot_bd_mandelbrotCalculator_0_0">
+    <FileSet Name="mandelbrot_bd_complexMapper_0_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/mandelbrot_bd_complexMapper_0_0" RelGenDir="$PGENDIR/mandelbrot_bd_complexMapper_0_0">
       <Config>
-        <Option Name="TopModule" Val="mandelbrot_bd_mandelbrotCalculator_0_0"/>
-        <Option Name="UseBlackboxStub" Val="1"/>
-      </Config>
-    </FileSet>
-    <FileSet Name="mandelbrot_bd_mandelbrotCalculator_0_1" Type="BlockSrcs" RelSrcDir="$PSRCDIR/mandelbrot_bd_mandelbrotCalculator_0_1" RelGenDir="$PGENDIR/mandelbrot_bd_mandelbrotCalculator_0_1">
-      <Config>
-        <Option Name="TopModule" Val="mandelbrot_bd_mandelbrotCalculator_0_1"/>
-        <Option Name="UseBlackboxStub" Val="1"/>
-      </Config>
-    </FileSet>
-    <FileSet Name="mandelbrot_bd_mandelbrotCalculator_0_2" Type="BlockSrcs" RelSrcDir="$PSRCDIR/mandelbrot_bd_mandelbrotCalculator_0_2" RelGenDir="$PGENDIR/mandelbrot_bd_mandelbrotCalculator_0_2">
-      <Config>
-        <Option Name="TopModule" Val="mandelbrot_bd_mandelbrotCalculator_0_2"/>
-        <Option Name="UseBlackboxStub" Val="1"/>
-      </Config>
-    </FileSet>
-    <FileSet Name="mandelbrot_bd_mandelbrotCalculator_0_3" Type="BlockSrcs" RelSrcDir="$PSRCDIR/mandelbrot_bd_mandelbrotCalculator_0_3" RelGenDir="$PGENDIR/mandelbrot_bd_mandelbrotCalculator_0_3">
-      <Config>
-        <Option Name="TopModule" Val="mandelbrot_bd_mandelbrotCalculator_0_3"/>
+        <Option Name="TopModule" Val="mandelbrot_bd_complexMapper_0_0"/>
         <Option Name="UseBlackboxStub" Val="1"/>
       </Config>
     </FileSet>
@@ -451,9 +419,7 @@
   <Runs Version="1" Minor="22">
     <Run Id="synth_1" Type="Ft3:Synth" SrcSet="sources_1" Part="xc7z020clg400-1" ConstrsSet="constrs_1" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="true" IncrementalCheckpoint="$PSRCDIR/utils_1/imports/synth_1/mandelbrot_bd_wrapper.dcp" WriteIncrSynthDcp="false" State="current" Dir="$PRUNDIR/synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/synth_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -463,9 +429,7 @@
     </Run>
     <Run Id="mult_gen_1_synth_1" Type="Ft3:Synth" SrcSet="mult_gen_1" Part="xc7z020clg400-1" ConstrsSet="mult_gen_1" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/mult_gen_1_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mult_gen_1_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mult_gen_1_synth_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -475,9 +439,7 @@
     </Run>
     <Run Id="mandelbrot_bd_STEP_Y_0_synth_1" Type="Ft3:Synth" SrcSet="mandelbrot_bd_STEP_Y_0" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_STEP_Y_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/mandelbrot_bd_STEP_Y_0_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_STEP_Y_0_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_STEP_Y_0_synth_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -487,9 +449,7 @@
     </Run>
     <Run Id="mandelbrot_bd_clk_wiz_0_0_synth_1" Type="Ft3:Synth" SrcSet="mandelbrot_bd_clk_wiz_0_0" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_clk_wiz_0_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/mandelbrot_bd_clk_wiz_0_0_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_clk_wiz_0_0_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_clk_wiz_0_0_synth_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -499,9 +459,7 @@
     </Run>
     <Run Id="mandelbrot_bd_axi_gpio_0_2_synth_1" Type="Ft3:Synth" SrcSet="mandelbrot_bd_axi_gpio_0_2" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_axi_gpio_0_2" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/mandelbrot_bd_axi_gpio_0_2_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_axi_gpio_0_2_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_axi_gpio_0_2_synth_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -511,9 +469,7 @@
     </Run>
     <Run Id="mandelbrot_bd_STEP_Y_2_synth_1" Type="Ft3:Synth" SrcSet="mandelbrot_bd_STEP_Y_2" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_STEP_Y_2" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/mandelbrot_bd_STEP_Y_2_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_STEP_Y_2_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_STEP_Y_2_synth_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -523,9 +479,7 @@
     </Run>
     <Run Id="mandelbrot_bd_axi_gpio_0_1_synth_1" Type="Ft3:Synth" SrcSet="mandelbrot_bd_axi_gpio_0_1" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_axi_gpio_0_1" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/mandelbrot_bd_axi_gpio_0_1_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_axi_gpio_0_1_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_axi_gpio_0_1_synth_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -535,9 +489,7 @@
     </Run>
     <Run Id="mandelbrot_bd_STEP_Y_1_synth_1" Type="Ft3:Synth" SrcSet="mandelbrot_bd_STEP_Y_1" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_STEP_Y_1" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/mandelbrot_bd_STEP_Y_1_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_STEP_Y_1_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_STEP_Y_1_synth_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -547,9 +499,7 @@
     </Run>
     <Run Id="mandelbrot_bd_STEP_Y_3_synth_1" Type="Ft3:Synth" SrcSet="mandelbrot_bd_STEP_Y_3" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_STEP_Y_3" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/mandelbrot_bd_STEP_Y_3_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_STEP_Y_3_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_STEP_Y_3_synth_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -559,9 +509,67 @@
     </Run>
     <Run Id="mandelbrot_bd_processing_system7_0_0_synth_1" Type="Ft3:Synth" SrcSet="mandelbrot_bd_processing_system7_0_0" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_processing_system7_0_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/mandelbrot_bd_processing_system7_0_0_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_processing_system7_0_0_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_processing_system7_0_0_synth_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025"/>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2025"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+      <RQSFiles/>
+    </Run>
+    <Run Id="mandelbrot_bd_axi_gpio_0_0_synth_1" Type="Ft3:Synth" SrcSet="mandelbrot_bd_axi_gpio_0_0" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_axi_gpio_0_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/mandelbrot_bd_axi_gpio_0_0_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_axi_gpio_0_0_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_axi_gpio_0_0_synth_1" ParallelReportGen="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025"/>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2025"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+      <RQSFiles/>
+    </Run>
+    <Run Id="mandelbrot_bd_rst_ps7_0_100M_1_synth_1" Type="Ft3:Synth" SrcSet="mandelbrot_bd_rst_ps7_0_100M_1" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_rst_ps7_0_100M_1" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/mandelbrot_bd_rst_ps7_0_100M_1_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_rst_ps7_0_100M_1_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_rst_ps7_0_100M_1_synth_1" ParallelReportGen="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025"/>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2025"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+      <RQSFiles/>
+    </Run>
+    <Run Id="mandelbrot_bd_STEP_X_0_synth_1" Type="Ft3:Synth" SrcSet="mandelbrot_bd_STEP_X_0" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_STEP_X_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/mandelbrot_bd_STEP_X_0_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_STEP_X_0_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_STEP_X_0_synth_1" ParallelReportGen="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025"/>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2025"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+      <RQSFiles/>
+    </Run>
+    <Run Id="mandelbrot_bd_MANDELBROT_0_1_synth_1" Type="Ft3:Synth" SrcSet="mandelbrot_bd_MANDELBROT_0_1" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_MANDELBROT_0_1" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/mandelbrot_bd_MANDELBROT_0_1_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_MANDELBROT_0_1_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_MANDELBROT_0_1_synth_1" ParallelReportGen="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025"/>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2025"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+      <RQSFiles/>
+    </Run>
+    <Run Id="mandelbrot_bd_MANDELBROT_0_0_synth_1" Type="Ft3:Synth" SrcSet="mandelbrot_bd_MANDELBROT_0_0" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_MANDELBROT_0_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/mandelbrot_bd_MANDELBROT_0_0_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_MANDELBROT_0_0_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_MANDELBROT_0_0_synth_1" ParallelReportGen="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025"/>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2025"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+      <RQSFiles/>
+    </Run>
+    <Run Id="mandelbrot_bd_MANDELBROT_0_2_synth_1" Type="Ft3:Synth" SrcSet="mandelbrot_bd_MANDELBROT_0_2" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_MANDELBROT_0_2" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/mandelbrot_bd_MANDELBROT_0_2_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_MANDELBROT_0_2_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_MANDELBROT_0_2_synth_1" ParallelReportGen="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -581,131 +589,9 @@
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="mandelbrot_bd_axi_gpio_0_0_synth_1" Type="Ft3:Synth" SrcSet="mandelbrot_bd_axi_gpio_0_0" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_axi_gpio_0_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/mandelbrot_bd_axi_gpio_0_0_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_axi_gpio_0_0_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_axi_gpio_0_0_synth_1" ParallelReportGen="true">
-      <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
-        <Step Id="synth_design"/>
-      </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
-      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2025"/>
-      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
-      <RQSFiles/>
-    </Run>
-    <Run Id="mandelbrot_bd_rst_ps7_0_100M_1_synth_1" Type="Ft3:Synth" SrcSet="mandelbrot_bd_rst_ps7_0_100M_1" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_rst_ps7_0_100M_1" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/mandelbrot_bd_rst_ps7_0_100M_1_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_rst_ps7_0_100M_1_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_rst_ps7_0_100M_1_synth_1" ParallelReportGen="true">
-      <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
-        <Step Id="synth_design"/>
-      </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
-      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2025"/>
-      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
-      <RQSFiles/>
-    </Run>
-    <Run Id="mandelbrot_bd_STEP_X_0_synth_1" Type="Ft3:Synth" SrcSet="mandelbrot_bd_STEP_X_0" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_STEP_X_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/mandelbrot_bd_STEP_X_0_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_STEP_X_0_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_STEP_X_0_synth_1" ParallelReportGen="true">
-      <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
-        <Step Id="synth_design"/>
-      </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
-      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2025"/>
-      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
-      <RQSFiles/>
-    </Run>
-    <Run Id="mandelbrot_bd_MANDELBROT_0_1_synth_1" Type="Ft3:Synth" SrcSet="mandelbrot_bd_MANDELBROT_0_1" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_MANDELBROT_0_1" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/mandelbrot_bd_MANDELBROT_0_1_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_MANDELBROT_0_1_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_MANDELBROT_0_1_synth_1" ParallelReportGen="true">
-      <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
-        <Step Id="synth_design"/>
-      </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
-      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2025"/>
-      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
-      <RQSFiles/>
-    </Run>
-    <Run Id="mandelbrot_bd_MANDELBROT_0_0_synth_1" Type="Ft3:Synth" SrcSet="mandelbrot_bd_MANDELBROT_0_0" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_MANDELBROT_0_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/mandelbrot_bd_MANDELBROT_0_0_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_MANDELBROT_0_0_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_MANDELBROT_0_0_synth_1" ParallelReportGen="true">
-      <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
-        <Step Id="synth_design"/>
-      </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
-      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2025"/>
-      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
-      <RQSFiles/>
-    </Run>
-    <Run Id="mandelbrot_bd_MANDELBROT_0_2_synth_1" Type="Ft3:Synth" SrcSet="mandelbrot_bd_MANDELBROT_0_2" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_MANDELBROT_0_2" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/mandelbrot_bd_MANDELBROT_0_2_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_MANDELBROT_0_2_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_MANDELBROT_0_2_synth_1" ParallelReportGen="true">
-      <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
-        <Step Id="synth_design"/>
-      </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
-      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2025"/>
-      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
-      <RQSFiles/>
-    </Run>
-    <Run Id="mandelbrot_bd_mandelbrotCalculator_0_0_synth_1" Type="Ft3:Synth" SrcSet="mandelbrot_bd_mandelbrotCalculator_0_0" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_mandelbrotCalculator_0_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/mandelbrot_bd_mandelbrotCalculator_0_0_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_mandelbrotCalculator_0_0_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_mandelbrotCalculator_0_0_synth_1" ParallelReportGen="true">
-      <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
-        <Step Id="synth_design"/>
-      </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
-      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2025"/>
-      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
-      <RQSFiles/>
-    </Run>
-    <Run Id="mandelbrot_bd_mandelbrotCalculator_0_1_synth_1" Type="Ft3:Synth" SrcSet="mandelbrot_bd_mandelbrotCalculator_0_1" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_mandelbrotCalculator_0_1" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/mandelbrot_bd_mandelbrotCalculator_0_1_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_mandelbrotCalculator_0_1_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_mandelbrotCalculator_0_1_synth_1" ParallelReportGen="true">
-      <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
-        <Step Id="synth_design"/>
-      </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
-      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2025"/>
-      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
-      <RQSFiles/>
-    </Run>
-    <Run Id="mandelbrot_bd_mandelbrotCalculator_0_2_synth_1" Type="Ft3:Synth" SrcSet="mandelbrot_bd_mandelbrotCalculator_0_2" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_mandelbrotCalculator_0_2" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/mandelbrot_bd_mandelbrotCalculator_0_2_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_mandelbrotCalculator_0_2_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_mandelbrotCalculator_0_2_synth_1" ParallelReportGen="true">
-      <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
-        <Step Id="synth_design"/>
-      </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
-      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2025"/>
-      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
-      <RQSFiles/>
-    </Run>
-    <Run Id="mandelbrot_bd_mandelbrotCalculator_0_3_synth_1" Type="Ft3:Synth" SrcSet="mandelbrot_bd_mandelbrotCalculator_0_3" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_mandelbrotCalculator_0_3" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/mandelbrot_bd_mandelbrotCalculator_0_3_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_mandelbrotCalculator_0_3_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_mandelbrotCalculator_0_3_synth_1" ParallelReportGen="true">
-      <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
-        <Step Id="synth_design"/>
-      </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
-      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2025"/>
-      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
-      <RQSFiles/>
-    </Run>
     <Run Id="impl_1" Type="Ft2:EntireDesign" Part="xc7z020clg400-1" ConstrsSet="constrs_1" Description="Default settings for Implementation." AutoIncrementalCheckpoint="true" WriteIncrSynthDcp="false" State="current" Dir="$PRUNDIR/impl_1" SynthRun="synth_1" IncludeInArchive="true" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/impl_1" LaunchOptions="-jobs 8 " AutoRQSDir="$PSRCDIR/utils_1/imports/impl_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -723,9 +609,7 @@
     </Run>
     <Run Id="mult_gen_1_impl_1" Type="Ft2:EntireDesign" Part="xc7z020clg400-1" ConstrsSet="mult_gen_1" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="mult_gen_1_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mult_gen_1_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mult_gen_1_impl_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -742,9 +626,7 @@
     </Run>
     <Run Id="mandelbrot_bd_STEP_Y_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_STEP_Y_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="mandelbrot_bd_STEP_Y_0_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_STEP_Y_0_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_STEP_Y_0_impl_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -761,9 +643,7 @@
     </Run>
     <Run Id="mandelbrot_bd_clk_wiz_0_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_clk_wiz_0_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="mandelbrot_bd_clk_wiz_0_0_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_clk_wiz_0_0_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_clk_wiz_0_0_impl_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -780,9 +660,7 @@
     </Run>
     <Run Id="mandelbrot_bd_axi_gpio_0_2_impl_1" Type="Ft2:EntireDesign" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_axi_gpio_0_2" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="mandelbrot_bd_axi_gpio_0_2_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_axi_gpio_0_2_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_axi_gpio_0_2_impl_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -799,9 +677,7 @@
     </Run>
     <Run Id="mandelbrot_bd_STEP_Y_2_impl_1" Type="Ft2:EntireDesign" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_STEP_Y_2" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="mandelbrot_bd_STEP_Y_2_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_STEP_Y_2_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_STEP_Y_2_impl_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -818,9 +694,7 @@
     </Run>
     <Run Id="mandelbrot_bd_axi_gpio_0_1_impl_1" Type="Ft2:EntireDesign" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_axi_gpio_0_1" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="mandelbrot_bd_axi_gpio_0_1_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_axi_gpio_0_1_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_axi_gpio_0_1_impl_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -837,9 +711,7 @@
     </Run>
     <Run Id="mandelbrot_bd_STEP_Y_1_impl_1" Type="Ft2:EntireDesign" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_STEP_Y_1" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="mandelbrot_bd_STEP_Y_1_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_STEP_Y_1_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_STEP_Y_1_impl_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -856,9 +728,7 @@
     </Run>
     <Run Id="mandelbrot_bd_STEP_Y_3_impl_1" Type="Ft2:EntireDesign" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_STEP_Y_3" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="mandelbrot_bd_STEP_Y_3_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_STEP_Y_3_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_STEP_Y_3_impl_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -875,28 +745,7 @@
     </Run>
     <Run Id="mandelbrot_bd_processing_system7_0_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_processing_system7_0_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="mandelbrot_bd_processing_system7_0_0_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_processing_system7_0_0_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_processing_system7_0_0_impl_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
-        <Step Id="init_design"/>
-        <Step Id="opt_design"/>
-        <Step Id="power_opt_design"/>
-        <Step Id="place_design"/>
-        <Step Id="post_place_power_opt_design"/>
-        <Step Id="phys_opt_design"/>
-        <Step Id="route_design"/>
-        <Step Id="post_route_phys_opt_design"/>
-        <Step Id="write_bitstream"/>
-      </Strategy>
-      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2025"/>
-      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
-      <RQSFiles/>
-    </Run>
-    <Run Id="mandelbrot_bd_complexMapper_0_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_complexMapper_0_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="mandelbrot_bd_complexMapper_0_0_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_complexMapper_0_0_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_complexMapper_0_0_impl_1" ParallelReportGen="true">
-      <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -913,9 +762,7 @@
     </Run>
     <Run Id="mandelbrot_bd_axi_gpio_0_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_axi_gpio_0_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="mandelbrot_bd_axi_gpio_0_0_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_axi_gpio_0_0_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_axi_gpio_0_0_impl_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -932,9 +779,7 @@
     </Run>
     <Run Id="mandelbrot_bd_rst_ps7_0_100M_1_impl_1" Type="Ft2:EntireDesign" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_rst_ps7_0_100M_1" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="mandelbrot_bd_rst_ps7_0_100M_1_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_rst_ps7_0_100M_1_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_rst_ps7_0_100M_1_impl_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -951,9 +796,7 @@
     </Run>
     <Run Id="mandelbrot_bd_STEP_X_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_STEP_X_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="mandelbrot_bd_STEP_X_0_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_STEP_X_0_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_STEP_X_0_impl_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -970,9 +813,7 @@
     </Run>
     <Run Id="mandelbrot_bd_MANDELBROT_0_1_impl_1" Type="Ft2:EntireDesign" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_MANDELBROT_0_1" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="mandelbrot_bd_MANDELBROT_0_1_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_MANDELBROT_0_1_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_MANDELBROT_0_1_impl_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -989,9 +830,7 @@
     </Run>
     <Run Id="mandelbrot_bd_MANDELBROT_0_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_MANDELBROT_0_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="mandelbrot_bd_MANDELBROT_0_0_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_MANDELBROT_0_0_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_MANDELBROT_0_0_impl_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -1008,9 +847,7 @@
     </Run>
     <Run Id="mandelbrot_bd_MANDELBROT_0_2_impl_1" Type="Ft2:EntireDesign" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_MANDELBROT_0_2" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="mandelbrot_bd_MANDELBROT_0_2_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_MANDELBROT_0_2_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_MANDELBROT_0_2_impl_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -1025,64 +862,7 @@
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="mandelbrot_bd_mandelbrotCalculator_0_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_mandelbrotCalculator_0_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="mandelbrot_bd_mandelbrotCalculator_0_0_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_mandelbrotCalculator_0_0_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_mandelbrotCalculator_0_0_impl_1" ParallelReportGen="true">
-      <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
-        <Step Id="init_design"/>
-        <Step Id="opt_design"/>
-        <Step Id="power_opt_design"/>
-        <Step Id="place_design"/>
-        <Step Id="post_place_power_opt_design"/>
-        <Step Id="phys_opt_design"/>
-        <Step Id="route_design"/>
-        <Step Id="post_route_phys_opt_design"/>
-        <Step Id="write_bitstream"/>
-      </Strategy>
-      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2025"/>
-      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
-      <RQSFiles/>
-    </Run>
-    <Run Id="mandelbrot_bd_mandelbrotCalculator_0_1_impl_1" Type="Ft2:EntireDesign" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_mandelbrotCalculator_0_1" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="mandelbrot_bd_mandelbrotCalculator_0_1_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_mandelbrotCalculator_0_1_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_mandelbrotCalculator_0_1_impl_1" ParallelReportGen="true">
-      <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
-        <Step Id="init_design"/>
-        <Step Id="opt_design"/>
-        <Step Id="power_opt_design"/>
-        <Step Id="place_design"/>
-        <Step Id="post_place_power_opt_design"/>
-        <Step Id="phys_opt_design"/>
-        <Step Id="route_design"/>
-        <Step Id="post_route_phys_opt_design"/>
-        <Step Id="write_bitstream"/>
-      </Strategy>
-      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2025"/>
-      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
-      <RQSFiles/>
-    </Run>
-    <Run Id="mandelbrot_bd_mandelbrotCalculator_0_2_impl_1" Type="Ft2:EntireDesign" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_mandelbrotCalculator_0_2" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="mandelbrot_bd_mandelbrotCalculator_0_2_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_mandelbrotCalculator_0_2_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_mandelbrotCalculator_0_2_impl_1" ParallelReportGen="true">
-      <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
-        <Step Id="init_design"/>
-        <Step Id="opt_design"/>
-        <Step Id="power_opt_design"/>
-        <Step Id="place_design"/>
-        <Step Id="post_place_power_opt_design"/>
-        <Step Id="phys_opt_design"/>
-        <Step Id="route_design"/>
-        <Step Id="post_route_phys_opt_design"/>
-        <Step Id="write_bitstream"/>
-      </Strategy>
-      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2025"/>
-      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
-      <RQSFiles/>
-    </Run>
-    <Run Id="mandelbrot_bd_mandelbrotCalculator_0_3_impl_1" Type="Ft2:EntireDesign" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_mandelbrotCalculator_0_3" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="mandelbrot_bd_mandelbrotCalculator_0_3_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_mandelbrotCalculator_0_3_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_mandelbrotCalculator_0_3_impl_1" ParallelReportGen="true">
+    <Run Id="mandelbrot_bd_complexMapper_0_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z020clg400-1" ConstrsSet="mandelbrot_bd_complexMapper_0_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="mandelbrot_bd_complexMapper_0_0_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_complexMapper_0_0_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/mandelbrot_bd_complexMapper_0_0_impl_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025">
           <Desc>Default settings for Implementation.</Desc>

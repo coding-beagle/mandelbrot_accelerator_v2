@@ -51,9 +51,6 @@ module complexMapper(
         
     wire signed [63:0] intermediateRe;
     wire signed [63:0] intermediateIm; 
-    
-//    assign intermediateRe = pixelX[63:52] * stepX;
-//    assign intermediateIm = pixelY[63:52] * stepY;
 
     mult_gen_1 intermediateReMult(
         .CLK(clk),
