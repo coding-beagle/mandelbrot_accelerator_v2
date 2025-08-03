@@ -5,6 +5,13 @@ vivado.ip_user_files
 vivado.sim
 vivado.hw
 
+*.cache
+*.runs
+*.gen
+*.ip_user_files
+*.sim
+*.hw
+
 _ide
 .rigel_lopper
 platform1

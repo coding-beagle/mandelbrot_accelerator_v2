@@ -1,45 +1,31 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0xD7C204A47949876C",
+      "boundary_crc": "0x462FA08CBB515B44",
       "device": "xc7z020clg400-1",
       "gen_directory": "../../../../vivado.gen/sources_1/bd/mandelbrot_bd",
       "name": "mandelbrot_bd",
       "rev_ctrl_bd_flag": "RevCtrlBdOff",
       "synth_flow_mode": "Hierarchical",
-      "tool_version": "2025.1"
+      "tool_version": "2025.1",
+      "validated": "true"
     },
     "design_tree": {
       "processing_system7_0": "",
-      "STEP_X": "",
-      "complexMapper_0": "",
-      "clk_wiz_0": "",
-      "axi_smc": "",
       "rst_ps7_0_100M": "",
-      "xlconcat_0": "",
-      "STEP_Y": "",
-      "xlconcat_1": "",
-      "TOP_LEFT_X": "",
-      "xlconcat_2": "",
-      "TOP_LEFT_Y": "",
-      "xlconcat_3": "",
-      "PIXEL_X": "",
-      "xlconcat_4": "",
-      "PIXEL_Y": "",
-      "xlconcat_5": "",
-      "mandelbrotCalculator_0": "",
-      "START_MANDELBROT": "",
-      "xlconcat_6": "",
-      "MANDELBROT_0": "",
+      "mandelbrotCalculator_4": "",
       "mandelbrotCalculator_1": "",
       "mandelbrotCalculator_2": "",
       "mandelbrotCalculator_3": "",
-      "MANDELBROT_1": "",
-      "xlconcat_7": "",
-      "MANDELBROT_2": "",
-      "xlconcat_8": "",
-      "MANDELBROT_3": "",
-      "xlconcat_9": ""
+      "clk_wiz_0": "",
+      "axi_smc": "",
+      "AXI_BROT_0": "",
+      "C_RE_1_GPIO": "",
+      "xlslice_0": "",
+      "xlslice_1": "",
+      "C_IM_1_GPIO": "",
+      "xlslice_2": "",
+      "xlslice_3": ""
     },
     "interface_ports": {
       "DDR": {
@@ -212,12 +198,24 @@
       }
     },
     "ports": {
-      "sys_clock": {
+      "sys_clock_0": {
         "type": "clk",
         "direction": "I",
         "parameters": {
+          "CLK_DOMAIN": {
+            "value": "mandelbrot_bd_sys_clock_0",
+            "value_src": "default"
+          },
           "FREQ_HZ": {
             "value": "125000000"
+          },
+          "FREQ_TOLERANCE_HZ": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
           },
           "PHASE": {
             "value": "0.0"
@@ -1959,35 +1957,24 @@
           }
         }
       },
-      "STEP_X": {
-        "vlnv": "xilinx.com:ip:axi_gpio:2.0",
-        "ip_revision": "37",
-        "xci_name": "mandelbrot_bd_axi_gpio_0_0",
-        "xci_path": "ip\\mandelbrot_bd_axi_gpio_0_0\\mandelbrot_bd_axi_gpio_0_0.xci",
-        "inst_hier_path": "STEP_X",
-        "has_run_ip_tcl": "true",
-        "parameters": {
-          "C_ALL_OUTPUTS": {
-            "value": "1"
-          },
-          "C_ALL_OUTPUTS_2": {
-            "value": "1"
-          },
-          "C_IS_DUAL": {
-            "value": "1"
-          }
-        }
+      "rst_ps7_0_100M": {
+        "vlnv": "xilinx.com:ip:proc_sys_reset:5.0",
+        "ip_revision": "17",
+        "xci_name": "mandelbrot_bd_rst_ps7_0_100M_1",
+        "xci_path": "ip\\mandelbrot_bd_rst_ps7_0_100M_1\\mandelbrot_bd_rst_ps7_0_100M_1.xci",
+        "inst_hier_path": "rst_ps7_0_100M",
+        "has_run_ip_tcl": "true"
       },
-      "complexMapper_0": {
-        "vlnv": "xilinx.com:module_ref:complexMapper:1.0",
+      "mandelbrotCalculator_4": {
+        "vlnv": "xilinx.com:module_ref:mandelbrotCalculator:1.0",
         "ip_revision": "1",
-        "xci_name": "mandelbrot_bd_complexMapper_0_0",
-        "xci_path": "ip\\mandelbrot_bd_complexMapper_0_0\\mandelbrot_bd_complexMapper_0_0.xci",
-        "inst_hier_path": "complexMapper_0",
+        "xci_name": "mandelbrot_bd_mandelbrotCalculator_0_0",
+        "xci_path": "ip\\mandelbrot_bd_mandelbrotCalculator_0_0\\mandelbrot_bd_mandelbrotCalculator_0_0.xci",
+        "inst_hier_path": "mandelbrotCalculator_4",
         "has_run_ip_tcl": "true",
         "reference_info": {
           "ref_type": "hdl",
-          "ref_name": "complexMapper",
+          "ref_name": "mandelbrotCalculator",
           "boundary_crc": "0x0"
         },
         "ports": {
@@ -1995,8 +1982,12 @@
             "type": "clk",
             "direction": "I",
             "parameters": {
+              "ASSOCIATED_RESET": {
+                "value": "rst",
+                "value_src": "constant"
+              },
               "FREQ_HZ": {
-                "value": "200000000",
+                "value": "100000000",
                 "value_src": "ip_prop"
               },
               "PHASE": {
@@ -2009,59 +2000,203 @@
               }
             }
           },
-          "stepX": {
+          "rst": {
+            "type": "rst",
+            "direction": "I"
+          },
+          "complexX": {
             "direction": "I",
             "left": "63",
             "right": "0"
           },
-          "stepY": {
+          "complexY": {
             "direction": "I",
             "left": "63",
             "right": "0"
           },
-          "topLeftX": {
-            "direction": "I",
-            "left": "63",
-            "right": "0"
+          "finishedFlag": {
+            "direction": "O"
           },
-          "topLeftY": {
-            "direction": "I",
-            "left": "63",
-            "right": "0"
-          },
-          "pixelX": {
-            "direction": "I",
-            "left": "63",
-            "right": "0"
-          },
-          "pixelY": {
-            "direction": "I",
-            "left": "63",
-            "right": "0"
-          },
-          "outRe1": {
+          "iterationCount": {
             "direction": "O",
+            "left": "9",
+            "right": "0"
+          }
+        }
+      },
+      "mandelbrotCalculator_1": {
+        "vlnv": "xilinx.com:module_ref:mandelbrotCalculator:1.0",
+        "ip_revision": "1",
+        "xci_name": "mandelbrot_bd_mandelbrotCalculator_0_1",
+        "xci_path": "ip\\mandelbrot_bd_mandelbrotCalculator_0_1\\mandelbrot_bd_mandelbrotCalculator_0_1.xci",
+        "inst_hier_path": "mandelbrotCalculator_1",
+        "has_run_ip_tcl": "true",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "mandelbrotCalculator",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "clk": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "ASSOCIATED_RESET": {
+                "value": "rst",
+                "value_src": "constant"
+              },
+              "FREQ_HZ": {
+                "value": "100000000",
+                "value_src": "ip_prop"
+              },
+              "PHASE": {
+                "value": "0.0",
+                "value_src": "ip_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "/clk_wiz_0_clk_out1",
+                "value_src": "ip_prop"
+              }
+            }
+          },
+          "rst": {
+            "type": "rst",
+            "direction": "I"
+          },
+          "complexX": {
+            "direction": "I",
             "left": "63",
             "right": "0"
           },
-          "outIm": {
-            "direction": "O",
+          "complexY": {
+            "direction": "I",
             "left": "63",
             "right": "0"
           },
-          "outRe2": {
+          "finishedFlag": {
+            "direction": "O"
+          },
+          "iterationCount": {
             "direction": "O",
+            "left": "9",
+            "right": "0"
+          }
+        }
+      },
+      "mandelbrotCalculator_2": {
+        "vlnv": "xilinx.com:module_ref:mandelbrotCalculator:1.0",
+        "ip_revision": "1",
+        "xci_name": "mandelbrot_bd_mandelbrotCalculator_0_2",
+        "xci_path": "ip\\mandelbrot_bd_mandelbrotCalculator_0_2\\mandelbrot_bd_mandelbrotCalculator_0_2.xci",
+        "inst_hier_path": "mandelbrotCalculator_2",
+        "has_run_ip_tcl": "true",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "mandelbrotCalculator",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "clk": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "ASSOCIATED_RESET": {
+                "value": "rst",
+                "value_src": "constant"
+              },
+              "FREQ_HZ": {
+                "value": "100000000",
+                "value_src": "ip_prop"
+              },
+              "PHASE": {
+                "value": "0.0",
+                "value_src": "ip_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "/clk_wiz_0_clk_out1",
+                "value_src": "ip_prop"
+              }
+            }
+          },
+          "rst": {
+            "type": "rst",
+            "direction": "I"
+          },
+          "complexX": {
+            "direction": "I",
             "left": "63",
             "right": "0"
           },
-          "outRe3": {
-            "direction": "O",
+          "complexY": {
+            "direction": "I",
             "left": "63",
             "right": "0"
           },
-          "outRe4": {
+          "finishedFlag": {
+            "direction": "O"
+          },
+          "iterationCount": {
             "direction": "O",
+            "left": "9",
+            "right": "0"
+          }
+        }
+      },
+      "mandelbrotCalculator_3": {
+        "vlnv": "xilinx.com:module_ref:mandelbrotCalculator:1.0",
+        "ip_revision": "1",
+        "xci_name": "mandelbrot_bd_mandelbrotCalculator_0_3",
+        "xci_path": "ip\\mandelbrot_bd_mandelbrotCalculator_0_3\\mandelbrot_bd_mandelbrotCalculator_0_3.xci",
+        "inst_hier_path": "mandelbrotCalculator_3",
+        "has_run_ip_tcl": "true",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "mandelbrotCalculator",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "clk": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "ASSOCIATED_RESET": {
+                "value": "rst",
+                "value_src": "constant"
+              },
+              "FREQ_HZ": {
+                "value": "100000000",
+                "value_src": "ip_prop"
+              },
+              "PHASE": {
+                "value": "0.0",
+                "value_src": "ip_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "/clk_wiz_0_clk_out1",
+                "value_src": "ip_prop"
+              }
+            }
+          },
+          "rst": {
+            "type": "rst",
+            "direction": "I"
+          },
+          "complexX": {
+            "direction": "I",
             "left": "63",
+            "right": "0"
+          },
+          "complexY": {
+            "direction": "I",
+            "left": "63",
+            "right": "0"
+          },
+          "finishedFlag": {
+            "direction": "O"
+          },
+          "iterationCount": {
+            "direction": "O",
+            "left": "9",
             "right": "0"
           }
         }
@@ -2069,8 +2204,8 @@
       "clk_wiz_0": {
         "vlnv": "xilinx.com:ip:clk_wiz:6.0",
         "ip_revision": "16",
-        "xci_name": "mandelbrot_bd_clk_wiz_0_0",
-        "xci_path": "ip\\mandelbrot_bd_clk_wiz_0_0\\mandelbrot_bd_clk_wiz_0_0.xci",
+        "xci_name": "mandelbrot_bd_clk_wiz_0_1",
+        "xci_path": "ip\\mandelbrot_bd_clk_wiz_0_1\\mandelbrot_bd_clk_wiz_0_1.xci",
         "inst_hier_path": "clk_wiz_0",
         "has_run_ip_tcl": "true",
         "parameters": {
@@ -2078,52 +2213,28 @@
             "value": "80.0"
           },
           "CLKOUT1_JITTER": {
-            "value": "185.342"
+            "value": "124.615"
           },
           "CLKOUT1_PHASE_ERROR": {
-            "value": "233.292"
+            "value": "96.948"
           },
           "CLKOUT1_REQUESTED_OUT_FREQ": {
-            "value": "200.000"
-          },
-          "CLKOUT2_JITTER": {
-            "value": "193.443"
-          },
-          "CLKOUT2_PHASE_ERROR": {
-            "value": "233.292"
-          },
-          "CLKOUT2_REQUESTED_OUT_FREQ": {
-            "value": "150.000"
-          },
-          "CLKOUT2_USED": {
-            "value": "true"
+            "value": "100.000"
           },
           "CLK_IN1_BOARD_INTERFACE": {
             "value": "sys_clock"
           },
           "CLK_OUT1_PORT": {
-            "value": "clk_out200"
-          },
-          "CLK_OUT2_PORT": {
-            "value": "clk_out150"
+            "value": "clk_out100"
           },
           "MMCM_CLKFBOUT_MULT_F": {
-            "value": "42.000"
+            "value": "8.000"
           },
           "MMCM_CLKIN1_PERIOD": {
             "value": "8.000"
           },
           "MMCM_CLKOUT0_DIVIDE_F": {
-            "value": "5.250"
-          },
-          "MMCM_CLKOUT1_DIVIDE": {
-            "value": "7"
-          },
-          "MMCM_DIVCLK_DIVIDE": {
-            "value": "5"
-          },
-          "NUM_OUT_CLKS": {
-            "value": "2"
+            "value": "10.000"
           },
           "USE_BOARD_FLOW": {
             "value": "true"
@@ -2139,13 +2250,13 @@
       "axi_smc": {
         "vlnv": "xilinx.com:ip:smartconnect:1.0",
         "ip_revision": "27",
-        "xci_name": "mandelbrot_bd_axi_smc_1",
-        "xci_path": "ip\\mandelbrot_bd_axi_smc_1\\mandelbrot_bd_axi_smc_1.xci",
+        "xci_name": "mandelbrot_bd_axi_smc_3",
+        "xci_path": "ip\\mandelbrot_bd_axi_smc_3\\mandelbrot_bd_axi_smc_3.xci",
         "inst_hier_path": "axi_smc",
         "has_run_ip_tcl": "true",
         "parameters": {
           "NUM_MI": {
-            "value": "11"
+            "value": "3"
           },
           "NUM_SI": {
             "value": "1"
@@ -2167,19 +2278,11 @@
             "bridges": [
               "M00_AXI",
               "M01_AXI",
-              "M02_AXI",
-              "M03_AXI",
-              "M04_AXI",
-              "M05_AXI",
-              "M06_AXI",
-              "M07_AXI",
-              "M08_AXI",
-              "M09_AXI",
-              "M10_AXI"
+              "M02_AXI"
             ],
             "bd_attributes": {
               "BRIDGES": {
-                "value": "M00_AXI:M01_AXI:M02_AXI:M03_AXI:M04_AXI:M05_AXI:M06_AXI:M07_AXI:M08_AXI:M09_AXI:M10_AXI",
+                "value": "M00_AXI:M01_AXI:M02_AXI",
                 "value_src": "auto"
               },
               "TYPE": {
@@ -2280,774 +2383,149 @@
                 "value_src": "default"
               }
             }
-          },
-          "M03_AXI": {
-            "mode": "Master",
-            "vlnv_bus_definition": "xilinx.com:interface:aximm:1.0",
-            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
-            "parameters": {
-              "NUM_READ_OUTSTANDING": {
-                "value": "8"
-              },
-              "NUM_READ_THREADS": {
-                "value": "1"
-              },
-              "NUM_WRITE_OUTSTANDING": {
-                "value": "8"
-              },
-              "NUM_WRITE_THREADS": {
-                "value": "1"
-              },
-              "RUSER_BITS_PER_BYTE": {
-                "value": "0"
-              },
-              "WUSER_BITS_PER_BYTE": {
-                "value": "0"
-              }
-            },
-            "bd_attributes": {
-              "TYPE": {
-                "value": "interior",
-                "value_src": "default"
-              }
-            }
-          },
-          "M04_AXI": {
-            "mode": "Master",
-            "vlnv_bus_definition": "xilinx.com:interface:aximm:1.0",
-            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
-            "parameters": {
-              "NUM_READ_OUTSTANDING": {
-                "value": "8"
-              },
-              "NUM_READ_THREADS": {
-                "value": "1"
-              },
-              "NUM_WRITE_OUTSTANDING": {
-                "value": "8"
-              },
-              "NUM_WRITE_THREADS": {
-                "value": "1"
-              },
-              "RUSER_BITS_PER_BYTE": {
-                "value": "0"
-              },
-              "WUSER_BITS_PER_BYTE": {
-                "value": "0"
-              }
-            },
-            "bd_attributes": {
-              "TYPE": {
-                "value": "interior",
-                "value_src": "default"
-              }
-            }
-          },
-          "M05_AXI": {
-            "mode": "Master",
-            "vlnv_bus_definition": "xilinx.com:interface:aximm:1.0",
-            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
-            "parameters": {
-              "NUM_READ_OUTSTANDING": {
-                "value": "8"
-              },
-              "NUM_READ_THREADS": {
-                "value": "1"
-              },
-              "NUM_WRITE_OUTSTANDING": {
-                "value": "8"
-              },
-              "NUM_WRITE_THREADS": {
-                "value": "1"
-              },
-              "RUSER_BITS_PER_BYTE": {
-                "value": "0"
-              },
-              "WUSER_BITS_PER_BYTE": {
-                "value": "0"
-              }
-            },
-            "bd_attributes": {
-              "TYPE": {
-                "value": "interior",
-                "value_src": "default"
-              }
-            }
-          },
-          "M06_AXI": {
-            "mode": "Master",
-            "vlnv_bus_definition": "xilinx.com:interface:aximm:1.0",
-            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
-            "parameters": {
-              "NUM_READ_OUTSTANDING": {
-                "value": "8"
-              },
-              "NUM_READ_THREADS": {
-                "value": "1"
-              },
-              "NUM_WRITE_OUTSTANDING": {
-                "value": "8"
-              },
-              "NUM_WRITE_THREADS": {
-                "value": "1"
-              },
-              "RUSER_BITS_PER_BYTE": {
-                "value": "0"
-              },
-              "WUSER_BITS_PER_BYTE": {
-                "value": "0"
-              }
-            },
-            "bd_attributes": {
-              "TYPE": {
-                "value": "interior",
-                "value_src": "default"
-              }
-            }
-          },
-          "M07_AXI": {
-            "mode": "Master",
-            "vlnv_bus_definition": "xilinx.com:interface:aximm:1.0",
-            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
-            "parameters": {
-              "NUM_READ_OUTSTANDING": {
-                "value": "8"
-              },
-              "NUM_READ_THREADS": {
-                "value": "1"
-              },
-              "NUM_WRITE_OUTSTANDING": {
-                "value": "8"
-              },
-              "NUM_WRITE_THREADS": {
-                "value": "1"
-              },
-              "RUSER_BITS_PER_BYTE": {
-                "value": "0"
-              },
-              "WUSER_BITS_PER_BYTE": {
-                "value": "0"
-              }
-            },
-            "bd_attributes": {
-              "TYPE": {
-                "value": "interior",
-                "value_src": "default"
-              }
-            }
-          },
-          "M08_AXI": {
-            "mode": "Master",
-            "vlnv_bus_definition": "xilinx.com:interface:aximm:1.0",
-            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
-            "parameters": {
-              "NUM_READ_OUTSTANDING": {
-                "value": "8"
-              },
-              "NUM_READ_THREADS": {
-                "value": "1"
-              },
-              "NUM_WRITE_OUTSTANDING": {
-                "value": "8"
-              },
-              "NUM_WRITE_THREADS": {
-                "value": "1"
-              },
-              "RUSER_BITS_PER_BYTE": {
-                "value": "0"
-              },
-              "WUSER_BITS_PER_BYTE": {
-                "value": "0"
-              }
-            },
-            "bd_attributes": {
-              "TYPE": {
-                "value": "interior",
-                "value_src": "default"
-              }
-            }
-          },
-          "M09_AXI": {
-            "mode": "Master",
-            "vlnv_bus_definition": "xilinx.com:interface:aximm:1.0",
-            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
-            "parameters": {
-              "NUM_READ_OUTSTANDING": {
-                "value": "8"
-              },
-              "NUM_READ_THREADS": {
-                "value": "1"
-              },
-              "NUM_WRITE_OUTSTANDING": {
-                "value": "8"
-              },
-              "NUM_WRITE_THREADS": {
-                "value": "1"
-              },
-              "RUSER_BITS_PER_BYTE": {
-                "value": "0"
-              },
-              "WUSER_BITS_PER_BYTE": {
-                "value": "0"
-              }
-            },
-            "bd_attributes": {
-              "TYPE": {
-                "value": "interior",
-                "value_src": "default"
-              }
-            }
-          },
-          "M10_AXI": {
-            "mode": "Master",
-            "vlnv_bus_definition": "xilinx.com:interface:aximm:1.0",
-            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
-            "parameters": {
-              "NUM_READ_OUTSTANDING": {
-                "value": "8"
-              },
-              "NUM_READ_THREADS": {
-                "value": "1"
-              },
-              "NUM_WRITE_OUTSTANDING": {
-                "value": "8"
-              },
-              "NUM_WRITE_THREADS": {
-                "value": "1"
-              },
-              "RUSER_BITS_PER_BYTE": {
-                "value": "0"
-              },
-              "WUSER_BITS_PER_BYTE": {
-                "value": "0"
-              }
-            },
-            "bd_attributes": {
-              "TYPE": {
-                "value": "interior",
-                "value_src": "default"
-              }
-            }
           }
         }
       },
-      "rst_ps7_0_100M": {
-        "vlnv": "xilinx.com:ip:proc_sys_reset:5.0",
-        "ip_revision": "17",
-        "xci_name": "mandelbrot_bd_rst_ps7_0_100M_1",
-        "xci_path": "ip\\mandelbrot_bd_rst_ps7_0_100M_1\\mandelbrot_bd_rst_ps7_0_100M_1.xci",
-        "inst_hier_path": "rst_ps7_0_100M",
+      "AXI_BROT_0": {
+        "vlnv": "xilinx.com:user:AXI_BROT:1.0",
+        "ip_revision": "5",
+        "xci_name": "mandelbrot_bd_AXI_BROT_0_0",
+        "xci_path": "ip\\mandelbrot_bd_AXI_BROT_0_0\\mandelbrot_bd_AXI_BROT_0_0.xci",
+        "inst_hier_path": "AXI_BROT_0",
         "has_run_ip_tcl": "true"
       },
-      "xlconcat_0": {
-        "vlnv": "xilinx.com:ip:xlconcat:2.1",
-        "ip_revision": "7",
-        "xci_name": "mandelbrot_bd_xlconcat_0_0",
-        "xci_path": "ip\\mandelbrot_bd_xlconcat_0_0\\mandelbrot_bd_xlconcat_0_0.xci",
-        "inst_hier_path": "xlconcat_0",
-        "has_run_ip_tcl": "true"
-      },
-      "STEP_Y": {
+      "C_RE_1_GPIO": {
         "vlnv": "xilinx.com:ip:axi_gpio:2.0",
         "ip_revision": "37",
-        "xci_name": "mandelbrot_bd_STEP_X_0",
-        "xci_path": "ip\\mandelbrot_bd_STEP_X_0\\mandelbrot_bd_STEP_X_0.xci",
-        "inst_hier_path": "STEP_Y",
-        "has_run_ip_tcl": "true",
-        "parameters": {
-          "C_ALL_OUTPUTS": {
-            "value": "1"
-          },
-          "C_ALL_OUTPUTS_2": {
-            "value": "1"
-          },
-          "C_IS_DUAL": {
-            "value": "1"
-          }
-        }
-      },
-      "xlconcat_1": {
-        "vlnv": "xilinx.com:ip:xlconcat:2.1",
-        "ip_revision": "7",
-        "xci_name": "mandelbrot_bd_xlconcat_0_1",
-        "xci_path": "ip\\mandelbrot_bd_xlconcat_0_1\\mandelbrot_bd_xlconcat_0_1.xci",
-        "inst_hier_path": "xlconcat_1",
-        "has_run_ip_tcl": "true"
-      },
-      "TOP_LEFT_X": {
-        "vlnv": "xilinx.com:ip:axi_gpio:2.0",
-        "ip_revision": "37",
-        "xci_name": "mandelbrot_bd_STEP_Y_0",
-        "xci_path": "ip\\mandelbrot_bd_STEP_Y_0\\mandelbrot_bd_STEP_Y_0.xci",
-        "inst_hier_path": "TOP_LEFT_X",
-        "has_run_ip_tcl": "true",
-        "parameters": {
-          "C_ALL_OUTPUTS": {
-            "value": "1"
-          },
-          "C_ALL_OUTPUTS_2": {
-            "value": "1"
-          },
-          "C_IS_DUAL": {
-            "value": "1"
-          }
-        }
-      },
-      "xlconcat_2": {
-        "vlnv": "xilinx.com:ip:xlconcat:2.1",
-        "ip_revision": "7",
-        "xci_name": "mandelbrot_bd_xlconcat_1_0",
-        "xci_path": "ip\\mandelbrot_bd_xlconcat_1_0\\mandelbrot_bd_xlconcat_1_0.xci",
-        "inst_hier_path": "xlconcat_2",
-        "has_run_ip_tcl": "true"
-      },
-      "TOP_LEFT_Y": {
-        "vlnv": "xilinx.com:ip:axi_gpio:2.0",
-        "ip_revision": "37",
-        "xci_name": "mandelbrot_bd_STEP_Y_1",
-        "xci_path": "ip\\mandelbrot_bd_STEP_Y_1\\mandelbrot_bd_STEP_Y_1.xci",
-        "inst_hier_path": "TOP_LEFT_Y",
-        "has_run_ip_tcl": "true",
-        "parameters": {
-          "C_ALL_OUTPUTS": {
-            "value": "1"
-          },
-          "C_ALL_OUTPUTS_2": {
-            "value": "1"
-          },
-          "C_IS_DUAL": {
-            "value": "1"
-          }
-        }
-      },
-      "xlconcat_3": {
-        "vlnv": "xilinx.com:ip:xlconcat:2.1",
-        "ip_revision": "7",
-        "xci_name": "mandelbrot_bd_xlconcat_1_1",
-        "xci_path": "ip\\mandelbrot_bd_xlconcat_1_1\\mandelbrot_bd_xlconcat_1_1.xci",
-        "inst_hier_path": "xlconcat_3",
-        "has_run_ip_tcl": "true"
-      },
-      "PIXEL_X": {
-        "vlnv": "xilinx.com:ip:axi_gpio:2.0",
-        "ip_revision": "37",
-        "xci_name": "mandelbrot_bd_STEP_Y_2",
-        "xci_path": "ip\\mandelbrot_bd_STEP_Y_2\\mandelbrot_bd_STEP_Y_2.xci",
-        "inst_hier_path": "PIXEL_X",
-        "has_run_ip_tcl": "true",
-        "parameters": {
-          "C_ALL_OUTPUTS": {
-            "value": "1"
-          },
-          "C_ALL_OUTPUTS_2": {
-            "value": "1"
-          },
-          "C_IS_DUAL": {
-            "value": "1"
-          }
-        }
-      },
-      "xlconcat_4": {
-        "vlnv": "xilinx.com:ip:xlconcat:2.1",
-        "ip_revision": "7",
-        "xci_name": "mandelbrot_bd_xlconcat_1_2",
-        "xci_path": "ip\\mandelbrot_bd_xlconcat_1_2\\mandelbrot_bd_xlconcat_1_2.xci",
-        "inst_hier_path": "xlconcat_4",
-        "has_run_ip_tcl": "true"
-      },
-      "PIXEL_Y": {
-        "vlnv": "xilinx.com:ip:axi_gpio:2.0",
-        "ip_revision": "37",
-        "xci_name": "mandelbrot_bd_STEP_Y_3",
-        "xci_path": "ip\\mandelbrot_bd_STEP_Y_3\\mandelbrot_bd_STEP_Y_3.xci",
-        "inst_hier_path": "PIXEL_Y",
-        "has_run_ip_tcl": "true",
-        "parameters": {
-          "C_ALL_OUTPUTS": {
-            "value": "1"
-          },
-          "C_ALL_OUTPUTS_2": {
-            "value": "1"
-          },
-          "C_IS_DUAL": {
-            "value": "1"
-          }
-        }
-      },
-      "xlconcat_5": {
-        "vlnv": "xilinx.com:ip:xlconcat:2.1",
-        "ip_revision": "7",
-        "xci_name": "mandelbrot_bd_xlconcat_1_3",
-        "xci_path": "ip\\mandelbrot_bd_xlconcat_1_3\\mandelbrot_bd_xlconcat_1_3.xci",
-        "inst_hier_path": "xlconcat_5",
-        "has_run_ip_tcl": "true"
-      },
-      "mandelbrotCalculator_0": {
-        "vlnv": "xilinx.com:module_ref:mandelbrotCalculator:1.0",
-        "ip_revision": "1",
-        "xci_name": "mandelbrot_bd_mandelbrotCalculator_0_0",
-        "xci_path": "ip\\mandelbrot_bd_mandelbrotCalculator_0_0\\mandelbrot_bd_mandelbrotCalculator_0_0.xci",
-        "inst_hier_path": "mandelbrotCalculator_0",
-        "has_run_ip_tcl": "true",
-        "reference_info": {
-          "ref_type": "hdl",
-          "ref_name": "mandelbrotCalculator",
-          "boundary_crc": "0x0"
-        },
-        "ports": {
-          "clk": {
-            "type": "clk",
-            "direction": "I",
-            "parameters": {
-              "ASSOCIATED_RESET": {
-                "value": "rst",
-                "value_src": "constant"
-              }
-            }
-          },
-          "rst": {
-            "type": "rst",
-            "direction": "I"
-          },
-          "complexX": {
-            "direction": "I",
-            "left": "63",
-            "right": "0"
-          },
-          "complexY": {
-            "direction": "I",
-            "left": "63",
-            "right": "0"
-          },
-          "finishedFlag": {
-            "direction": "O"
-          },
-          "iterationCount": {
-            "direction": "O",
-            "left": "9",
-            "right": "0"
-          }
-        }
-      },
-      "START_MANDELBROT": {
-        "vlnv": "xilinx.com:ip:axi_gpio:2.0",
-        "ip_revision": "37",
-        "xci_name": "mandelbrot_bd_axi_gpio_0_1",
-        "xci_path": "ip\\mandelbrot_bd_axi_gpio_0_1\\mandelbrot_bd_axi_gpio_0_1.xci",
-        "inst_hier_path": "START_MANDELBROT",
-        "has_run_ip_tcl": "true",
-        "parameters": {
-          "C_ALL_OUTPUTS": {
-            "value": "1"
-          },
-          "C_GPIO_WIDTH": {
-            "value": "1"
-          }
-        }
-      },
-      "xlconcat_6": {
-        "vlnv": "xilinx.com:ip:xlconcat:2.1",
-        "ip_revision": "7",
-        "xci_name": "mandelbrot_bd_xlconcat_6_0",
-        "xci_path": "ip\\mandelbrot_bd_xlconcat_6_0\\mandelbrot_bd_xlconcat_6_0.xci",
-        "inst_hier_path": "xlconcat_6",
-        "has_run_ip_tcl": "true"
-      },
-      "MANDELBROT_0": {
-        "vlnv": "xilinx.com:ip:axi_gpio:2.0",
-        "ip_revision": "37",
-        "xci_name": "mandelbrot_bd_axi_gpio_0_2",
-        "xci_path": "ip\\mandelbrot_bd_axi_gpio_0_2\\mandelbrot_bd_axi_gpio_0_2.xci",
-        "inst_hier_path": "MANDELBROT_0",
+        "xci_name": "mandelbrot_bd_axi_gpio_0_0",
+        "xci_path": "ip\\mandelbrot_bd_axi_gpio_0_0\\mandelbrot_bd_axi_gpio_0_0.xci",
+        "inst_hier_path": "C_RE_1_GPIO",
         "has_run_ip_tcl": "true",
         "parameters": {
           "C_ALL_INPUTS": {
             "value": "1"
           },
-          "C_GPIO_WIDTH": {
-            "value": "11"
+          "C_ALL_INPUTS_2": {
+            "value": "1"
+          },
+          "C_IS_DUAL": {
+            "value": "1"
           }
         }
       },
-      "mandelbrotCalculator_1": {
-        "vlnv": "xilinx.com:module_ref:mandelbrotCalculator:1.0",
-        "ip_revision": "1",
-        "xci_name": "mandelbrot_bd_mandelbrotCalculator_0_1",
-        "xci_path": "ip\\mandelbrot_bd_mandelbrotCalculator_0_1\\mandelbrot_bd_mandelbrotCalculator_0_1.xci",
-        "inst_hier_path": "mandelbrotCalculator_1",
+      "xlslice_0": {
+        "vlnv": "xilinx.com:ip:xlslice:1.0",
+        "ip_revision": "5",
+        "xci_name": "mandelbrot_bd_xlslice_0_0",
+        "xci_path": "ip\\mandelbrot_bd_xlslice_0_0\\mandelbrot_bd_xlslice_0_0.xci",
+        "inst_hier_path": "xlslice_0",
         "has_run_ip_tcl": "true",
-        "reference_info": {
-          "ref_type": "hdl",
-          "ref_name": "mandelbrotCalculator",
-          "boundary_crc": "0x0"
-        },
-        "ports": {
-          "clk": {
-            "type": "clk",
-            "direction": "I",
-            "parameters": {
-              "ASSOCIATED_RESET": {
-                "value": "rst",
-                "value_src": "constant"
-              }
-            }
+        "parameters": {
+          "DIN_FROM": {
+            "value": "63"
           },
-          "rst": {
-            "type": "rst",
-            "direction": "I"
+          "DIN_TO": {
+            "value": "32"
           },
-          "complexX": {
-            "direction": "I",
-            "left": "63",
-            "right": "0"
-          },
-          "complexY": {
-            "direction": "I",
-            "left": "63",
-            "right": "0"
-          },
-          "finishedFlag": {
-            "direction": "O"
-          },
-          "iterationCount": {
-            "direction": "O",
-            "left": "9",
-            "right": "0"
+          "DIN_WIDTH": {
+            "value": "64"
           }
         }
       },
-      "mandelbrotCalculator_2": {
-        "vlnv": "xilinx.com:module_ref:mandelbrotCalculator:1.0",
-        "ip_revision": "1",
-        "xci_name": "mandelbrot_bd_mandelbrotCalculator_0_2",
-        "xci_path": "ip\\mandelbrot_bd_mandelbrotCalculator_0_2\\mandelbrot_bd_mandelbrotCalculator_0_2.xci",
-        "inst_hier_path": "mandelbrotCalculator_2",
+      "xlslice_1": {
+        "vlnv": "xilinx.com:ip:xlslice:1.0",
+        "ip_revision": "5",
+        "xci_name": "mandelbrot_bd_xlslice_0_1",
+        "xci_path": "ip\\mandelbrot_bd_xlslice_0_1\\mandelbrot_bd_xlslice_0_1.xci",
+        "inst_hier_path": "xlslice_1",
         "has_run_ip_tcl": "true",
-        "reference_info": {
-          "ref_type": "hdl",
-          "ref_name": "mandelbrotCalculator",
-          "boundary_crc": "0x0"
-        },
-        "ports": {
-          "clk": {
-            "type": "clk",
-            "direction": "I",
-            "parameters": {
-              "ASSOCIATED_RESET": {
-                "value": "rst",
-                "value_src": "constant"
-              }
-            }
+        "parameters": {
+          "DIN_FROM": {
+            "value": "31"
           },
-          "rst": {
-            "type": "rst",
-            "direction": "I"
+          "DIN_TO": {
+            "value": "0"
           },
-          "complexX": {
-            "direction": "I",
-            "left": "63",
-            "right": "0"
-          },
-          "complexY": {
-            "direction": "I",
-            "left": "63",
-            "right": "0"
-          },
-          "finishedFlag": {
-            "direction": "O"
-          },
-          "iterationCount": {
-            "direction": "O",
-            "left": "9",
-            "right": "0"
+          "DIN_WIDTH": {
+            "value": "64"
           }
         }
       },
-      "mandelbrotCalculator_3": {
-        "vlnv": "xilinx.com:module_ref:mandelbrotCalculator:1.0",
-        "ip_revision": "1",
-        "xci_name": "mandelbrot_bd_mandelbrotCalculator_0_3",
-        "xci_path": "ip\\mandelbrot_bd_mandelbrotCalculator_0_3\\mandelbrot_bd_mandelbrotCalculator_0_3.xci",
-        "inst_hier_path": "mandelbrotCalculator_3",
-        "has_run_ip_tcl": "true",
-        "reference_info": {
-          "ref_type": "hdl",
-          "ref_name": "mandelbrotCalculator",
-          "boundary_crc": "0x0"
-        },
-        "ports": {
-          "clk": {
-            "type": "clk",
-            "direction": "I",
-            "parameters": {
-              "ASSOCIATED_RESET": {
-                "value": "rst",
-                "value_src": "constant"
-              }
-            }
-          },
-          "rst": {
-            "type": "rst",
-            "direction": "I"
-          },
-          "complexX": {
-            "direction": "I",
-            "left": "63",
-            "right": "0"
-          },
-          "complexY": {
-            "direction": "I",
-            "left": "63",
-            "right": "0"
-          },
-          "finishedFlag": {
-            "direction": "O"
-          },
-          "iterationCount": {
-            "direction": "O",
-            "left": "9",
-            "right": "0"
-          }
-        }
-      },
-      "MANDELBROT_1": {
+      "C_IM_1_GPIO": {
         "vlnv": "xilinx.com:ip:axi_gpio:2.0",
         "ip_revision": "37",
-        "xci_name": "mandelbrot_bd_MANDELBROT_0_0",
-        "xci_path": "ip\\mandelbrot_bd_MANDELBROT_0_0\\mandelbrot_bd_MANDELBROT_0_0.xci",
-        "inst_hier_path": "MANDELBROT_1",
+        "xci_name": "mandelbrot_bd_C_RE_1_GPIO_0",
+        "xci_path": "ip\\mandelbrot_bd_C_RE_1_GPIO_0\\mandelbrot_bd_C_RE_1_GPIO_0.xci",
+        "inst_hier_path": "C_IM_1_GPIO",
         "has_run_ip_tcl": "true",
         "parameters": {
           "C_ALL_INPUTS": {
             "value": "1"
           },
-          "C_GPIO_WIDTH": {
-            "value": "11"
-          }
-        }
-      },
-      "xlconcat_7": {
-        "vlnv": "xilinx.com:ip:xlconcat:2.1",
-        "ip_revision": "7",
-        "xci_name": "mandelbrot_bd_xlconcat_6_1",
-        "xci_path": "ip\\mandelbrot_bd_xlconcat_6_1\\mandelbrot_bd_xlconcat_6_1.xci",
-        "inst_hier_path": "xlconcat_7",
-        "has_run_ip_tcl": "true"
-      },
-      "MANDELBROT_2": {
-        "vlnv": "xilinx.com:ip:axi_gpio:2.0",
-        "ip_revision": "37",
-        "xci_name": "mandelbrot_bd_MANDELBROT_0_1",
-        "xci_path": "ip\\mandelbrot_bd_MANDELBROT_0_1\\mandelbrot_bd_MANDELBROT_0_1.xci",
-        "inst_hier_path": "MANDELBROT_2",
-        "has_run_ip_tcl": "true",
-        "parameters": {
-          "C_ALL_INPUTS": {
+          "C_ALL_INPUTS_2": {
             "value": "1"
           },
-          "C_GPIO_WIDTH": {
-            "value": "11"
+          "C_IS_DUAL": {
+            "value": "1"
           }
         }
       },
-      "xlconcat_8": {
-        "vlnv": "xilinx.com:ip:xlconcat:2.1",
-        "ip_revision": "7",
-        "xci_name": "mandelbrot_bd_xlconcat_6_2",
-        "xci_path": "ip\\mandelbrot_bd_xlconcat_6_2\\mandelbrot_bd_xlconcat_6_2.xci",
-        "inst_hier_path": "xlconcat_8",
-        "has_run_ip_tcl": "true"
-      },
-      "MANDELBROT_3": {
-        "vlnv": "xilinx.com:ip:axi_gpio:2.0",
-        "ip_revision": "37",
-        "xci_name": "mandelbrot_bd_MANDELBROT_0_2",
-        "xci_path": "ip\\mandelbrot_bd_MANDELBROT_0_2\\mandelbrot_bd_MANDELBROT_0_2.xci",
-        "inst_hier_path": "MANDELBROT_3",
+      "xlslice_2": {
+        "vlnv": "xilinx.com:ip:xlslice:1.0",
+        "ip_revision": "5",
+        "xci_name": "mandelbrot_bd_xlslice_0_2",
+        "xci_path": "ip\\mandelbrot_bd_xlslice_0_2\\mandelbrot_bd_xlslice_0_2.xci",
+        "inst_hier_path": "xlslice_2",
         "has_run_ip_tcl": "true",
         "parameters": {
-          "C_ALL_INPUTS": {
-            "value": "1"
+          "DIN_FROM": {
+            "value": "63"
           },
-          "C_GPIO_WIDTH": {
-            "value": "11"
+          "DIN_TO": {
+            "value": "32"
+          },
+          "DIN_WIDTH": {
+            "value": "64"
           }
         }
       },
-      "xlconcat_9": {
-        "vlnv": "xilinx.com:ip:xlconcat:2.1",
-        "ip_revision": "7",
-        "xci_name": "mandelbrot_bd_xlconcat_6_3",
-        "xci_path": "ip\\mandelbrot_bd_xlconcat_6_3\\mandelbrot_bd_xlconcat_6_3.xci",
-        "inst_hier_path": "xlconcat_9",
-        "has_run_ip_tcl": "true"
+      "xlslice_3": {
+        "vlnv": "xilinx.com:ip:xlslice:1.0",
+        "ip_revision": "5",
+        "xci_name": "mandelbrot_bd_xlslice_1_0",
+        "xci_path": "ip\\mandelbrot_bd_xlslice_1_0\\mandelbrot_bd_xlslice_1_0.xci",
+        "inst_hier_path": "xlslice_3",
+        "has_run_ip_tcl": "true",
+        "parameters": {
+          "DIN_FROM": {
+            "value": "31"
+          },
+          "DIN_TO": {
+            "value": "0"
+          },
+          "DIN_WIDTH": {
+            "value": "64"
+          }
+        }
       }
     },
     "interface_nets": {
       "axi_smc_M00_AXI": {
         "interface_ports": [
           "axi_smc/M00_AXI",
-          "STEP_X/S_AXI"
+          "AXI_BROT_0/S00_AXI"
         ]
       },
       "axi_smc_M01_AXI": {
         "interface_ports": [
           "axi_smc/M01_AXI",
-          "PIXEL_X/S_AXI"
+          "C_IM_1_GPIO/S_AXI"
         ]
       },
       "axi_smc_M02_AXI": {
         "interface_ports": [
           "axi_smc/M02_AXI",
-          "PIXEL_Y/S_AXI"
-        ]
-      },
-      "axi_smc_M03_AXI": {
-        "interface_ports": [
-          "axi_smc/M03_AXI",
-          "STEP_Y/S_AXI"
-        ]
-      },
-      "axi_smc_M04_AXI": {
-        "interface_ports": [
-          "axi_smc/M04_AXI",
-          "TOP_LEFT_X/S_AXI"
-        ]
-      },
-      "axi_smc_M05_AXI": {
-        "interface_ports": [
-          "axi_smc/M05_AXI",
-          "TOP_LEFT_Y/S_AXI"
-        ]
-      },
-      "axi_smc_M06_AXI": {
-        "interface_ports": [
-          "axi_smc/M06_AXI",
-          "MANDELBROT_0/S_AXI"
-        ]
-      },
-      "axi_smc_M07_AXI": {
-        "interface_ports": [
-          "axi_smc/M07_AXI",
-          "START_MANDELBROT/S_AXI"
-        ]
-      },
-      "axi_smc_M08_AXI": {
-        "interface_ports": [
-          "axi_smc/M08_AXI",
-          "MANDELBROT_1/S_AXI"
-        ]
-      },
-      "axi_smc_M09_AXI": {
-        "interface_ports": [
-          "axi_smc/M09_AXI",
-          "MANDELBROT_2/S_AXI"
-        ]
-      },
-      "axi_smc_M10_AXI": {
-        "interface_ports": [
-          "axi_smc/M10_AXI",
-          "MANDELBROT_3/S_AXI"
+          "C_RE_1_GPIO/S_AXI"
         ]
       },
       "processing_system7_0_DDR": {
@@ -3070,200 +2548,148 @@
       }
     },
     "nets": {
-      "START_MANDELBROT_gpio_io_o": {
+      "AXI_BROT_0_C_IM_1": {
         "ports": [
-          "START_MANDELBROT/gpio_io_o",
-          "mandelbrotCalculator_0/rst",
-          "mandelbrotCalculator_1/rst",
-          "mandelbrotCalculator_2/rst",
+          "AXI_BROT_0/C_IM_1",
+          "mandelbrotCalculator_1/complexY",
+          "xlslice_2/Din",
+          "xlslice_3/Din"
+        ]
+      },
+      "AXI_BROT_0_C_IM_2": {
+        "ports": [
+          "AXI_BROT_0/C_IM_2",
+          "mandelbrotCalculator_2/complexY"
+        ]
+      },
+      "AXI_BROT_0_C_IM_3": {
+        "ports": [
+          "AXI_BROT_0/C_IM_3",
+          "mandelbrotCalculator_3/complexY"
+        ]
+      },
+      "AXI_BROT_0_C_IM_4": {
+        "ports": [
+          "AXI_BROT_0/C_IM_4",
+          "mandelbrotCalculator_4/complexY"
+        ]
+      },
+      "AXI_BROT_0_C_RE_1": {
+        "ports": [
+          "AXI_BROT_0/C_RE_1",
+          "mandelbrotCalculator_1/complexX",
+          "xlslice_0/Din",
+          "xlslice_1/Din"
+        ]
+      },
+      "AXI_BROT_0_C_RE_2": {
+        "ports": [
+          "AXI_BROT_0/C_RE_2",
+          "mandelbrotCalculator_2/complexX"
+        ]
+      },
+      "AXI_BROT_0_C_RE_3": {
+        "ports": [
+          "AXI_BROT_0/C_RE_3",
+          "mandelbrotCalculator_3/complexX"
+        ]
+      },
+      "AXI_BROT_0_C_RE_4": {
+        "ports": [
+          "AXI_BROT_0/C_RE_4",
+          "mandelbrotCalculator_4/complexX"
+        ]
+      },
+      "AXI_BROT_0_RST_1": {
+        "ports": [
+          "AXI_BROT_0/RST_1",
+          "mandelbrotCalculator_1/rst"
+        ]
+      },
+      "AXI_BROT_0_RST_2": {
+        "ports": [
+          "AXI_BROT_0/RST_2",
+          "mandelbrotCalculator_2/rst"
+        ]
+      },
+      "AXI_BROT_0_RST_3": {
+        "ports": [
+          "AXI_BROT_0/RST_3",
           "mandelbrotCalculator_3/rst"
         ]
       },
-      "axi_gpio_0_gpio2_io_o": {
+      "AXI_BROT_0_RST_4": {
         "ports": [
-          "STEP_X/gpio2_io_o",
-          "xlconcat_0/In1"
-        ]
-      },
-      "axi_gpio_0_gpio2_io_o1": {
-        "ports": [
-          "STEP_Y/gpio2_io_o",
-          "xlconcat_1/In1"
-        ]
-      },
-      "axi_gpio_0_gpio2_io_o2": {
-        "ports": [
-          "TOP_LEFT_X/gpio2_io_o",
-          "xlconcat_2/In1"
-        ]
-      },
-      "axi_gpio_0_gpio2_io_o3": {
-        "ports": [
-          "TOP_LEFT_Y/gpio2_io_o",
-          "xlconcat_3/In1"
-        ]
-      },
-      "axi_gpio_0_gpio2_io_o4": {
-        "ports": [
-          "PIXEL_X/gpio2_io_o",
-          "xlconcat_4/In1"
-        ]
-      },
-      "axi_gpio_0_gpio2_io_o5": {
-        "ports": [
-          "PIXEL_Y/gpio2_io_o",
-          "xlconcat_5/In1"
-        ]
-      },
-      "axi_gpio_0_gpio_io_o": {
-        "ports": [
-          "STEP_X/gpio_io_o",
-          "xlconcat_0/In0"
-        ]
-      },
-      "axi_gpio_0_gpio_io_o1": {
-        "ports": [
-          "STEP_Y/gpio_io_o",
-          "xlconcat_1/In0"
-        ]
-      },
-      "axi_gpio_0_gpio_io_o2": {
-        "ports": [
-          "TOP_LEFT_X/gpio_io_o",
-          "xlconcat_2/In0"
-        ]
-      },
-      "axi_gpio_0_gpio_io_o3": {
-        "ports": [
-          "TOP_LEFT_Y/gpio_io_o",
-          "xlconcat_3/In0"
-        ]
-      },
-      "axi_gpio_0_gpio_io_o4": {
-        "ports": [
-          "PIXEL_X/gpio_io_o",
-          "xlconcat_4/In0"
-        ]
-      },
-      "axi_gpio_0_gpio_io_o5": {
-        "ports": [
-          "PIXEL_Y/gpio_io_o",
-          "xlconcat_5/In0"
+          "AXI_BROT_0/RST_4",
+          "mandelbrotCalculator_4/rst"
         ]
       },
       "clk_wiz_0_clk_out150": {
         "ports": [
-          "clk_wiz_0/clk_out150",
-          "mandelbrotCalculator_0/clk",
+          "clk_wiz_0/clk_out100",
+          "mandelbrotCalculator_4/clk",
           "mandelbrotCalculator_1/clk",
           "mandelbrotCalculator_2/clk",
           "mandelbrotCalculator_3/clk"
         ]
       },
-      "clk_wiz_0_clk_out200": {
-        "ports": [
-          "clk_wiz_0/clk_out200",
-          "complexMapper_0/clk"
-        ]
-      },
-      "complexMapper_0_outIm": {
-        "ports": [
-          "complexMapper_0/outIm",
-          "mandelbrotCalculator_0/complexY",
-          "mandelbrotCalculator_1/complexY",
-          "mandelbrotCalculator_2/complexY",
-          "mandelbrotCalculator_3/complexY"
-        ]
-      },
-      "complexMapper_0_outRe1": {
-        "ports": [
-          "complexMapper_0/outRe1",
-          "mandelbrotCalculator_0/complexX"
-        ]
-      },
-      "complexMapper_0_outRe2": {
-        "ports": [
-          "complexMapper_0/outRe2",
-          "mandelbrotCalculator_1/complexX"
-        ]
-      },
-      "complexMapper_0_outRe3": {
-        "ports": [
-          "complexMapper_0/outRe3",
-          "mandelbrotCalculator_2/complexX"
-        ]
-      },
-      "complexMapper_0_outRe4": {
-        "ports": [
-          "complexMapper_0/outRe4",
-          "mandelbrotCalculator_3/complexX"
-        ]
-      },
-      "mandelbrotCalculator_0_finishedFlag": {
-        "ports": [
-          "mandelbrotCalculator_0/finishedFlag",
-          "xlconcat_6/In1"
-        ]
-      },
-      "mandelbrotCalculator_0_iterationCount": {
-        "ports": [
-          "mandelbrotCalculator_0/iterationCount",
-          "xlconcat_6/In0"
-        ]
-      },
       "mandelbrotCalculator_1_finishedFlag": {
         "ports": [
           "mandelbrotCalculator_1/finishedFlag",
-          "xlconcat_7/In1"
+          "AXI_BROT_0/FINISHED_1"
         ]
       },
       "mandelbrotCalculator_1_iterationCount": {
         "ports": [
           "mandelbrotCalculator_1/iterationCount",
-          "xlconcat_7/In0"
+          "AXI_BROT_0/ITER_1"
         ]
       },
       "mandelbrotCalculator_2_finishedFlag": {
         "ports": [
           "mandelbrotCalculator_2/finishedFlag",
-          "xlconcat_8/In1"
+          "AXI_BROT_0/FINISHED_2"
         ]
       },
       "mandelbrotCalculator_2_iterationCount": {
         "ports": [
           "mandelbrotCalculator_2/iterationCount",
-          "xlconcat_8/In0"
+          "AXI_BROT_0/ITER_2"
         ]
       },
       "mandelbrotCalculator_3_finishedFlag": {
         "ports": [
           "mandelbrotCalculator_3/finishedFlag",
-          "xlconcat_9/In1"
+          "AXI_BROT_0/FINISHED_3"
         ]
       },
       "mandelbrotCalculator_3_iterationCount": {
         "ports": [
           "mandelbrotCalculator_3/iterationCount",
-          "xlconcat_9/In0"
+          "AXI_BROT_0/ITER_3"
+        ]
+      },
+      "mandelbrotCalculator_4_finishedFlag": {
+        "ports": [
+          "mandelbrotCalculator_4/finishedFlag",
+          "AXI_BROT_0/FINISHED_4"
+        ]
+      },
+      "mandelbrotCalculator_4_iterationCount": {
+        "ports": [
+          "mandelbrotCalculator_4/iterationCount",
+          "AXI_BROT_0/ITER_4"
         ]
       },
       "processing_system7_0_FCLK_CLK0": {
         "ports": [
           "processing_system7_0/FCLK_CLK0",
-          "processing_system7_0/M_AXI_GP0_ACLK",
           "axi_smc/aclk",
-          "STEP_X/s_axi_aclk",
+          "processing_system7_0/M_AXI_GP0_ACLK",
           "rst_ps7_0_100M/slowest_sync_clk",
-          "PIXEL_X/s_axi_aclk",
-          "PIXEL_Y/s_axi_aclk",
-          "STEP_Y/s_axi_aclk",
-          "TOP_LEFT_X/s_axi_aclk",
-          "TOP_LEFT_Y/s_axi_aclk",
-          "MANDELBROT_0/s_axi_aclk",
-          "START_MANDELBROT/s_axi_aclk",
-          "MANDELBROT_1/s_axi_aclk",
-          "MANDELBROT_2/s_axi_aclk",
-          "MANDELBROT_3/s_axi_aclk"
+          "AXI_BROT_0/s00_axi_aclk",
+          "C_IM_1_GPIO/s_axi_aclk",
+          "C_RE_1_GPIO/s_axi_aclk"
         ]
       },
       "processing_system7_0_FCLK_RESET0_N": {
@@ -3275,84 +2701,40 @@
       "rst_ps7_0_100M_peripheral_aresetn": {
         "ports": [
           "rst_ps7_0_100M/peripheral_aresetn",
-          "STEP_X/s_axi_aresetn",
           "axi_smc/aresetn",
-          "PIXEL_X/s_axi_aresetn",
-          "PIXEL_Y/s_axi_aresetn",
-          "STEP_Y/s_axi_aresetn",
-          "TOP_LEFT_X/s_axi_aresetn",
-          "TOP_LEFT_Y/s_axi_aresetn",
-          "MANDELBROT_0/s_axi_aresetn",
-          "START_MANDELBROT/s_axi_aresetn",
-          "MANDELBROT_1/s_axi_aresetn",
-          "MANDELBROT_2/s_axi_aresetn",
-          "MANDELBROT_3/s_axi_aresetn"
+          "AXI_BROT_0/s00_axi_aresetn",
+          "C_IM_1_GPIO/s_axi_aresetn",
+          "C_RE_1_GPIO/s_axi_aresetn"
         ]
       },
-      "sys_clock_1": {
+      "sys_clock_0_1": {
         "ports": [
-          "sys_clock",
+          "sys_clock_0",
           "clk_wiz_0/clk_in1"
         ]
       },
-      "xlconcat_0_dout": {
+      "xlslice_0_Dout": {
         "ports": [
-          "xlconcat_0/dout",
-          "complexMapper_0/stepX"
+          "xlslice_0/Dout",
+          "C_RE_1_GPIO/gpio_io_i"
         ]
       },
-      "xlconcat_1_dout": {
+      "xlslice_1_Dout": {
         "ports": [
-          "xlconcat_1/dout",
-          "complexMapper_0/stepY"
+          "xlslice_1/Dout",
+          "C_RE_1_GPIO/gpio2_io_i"
         ]
       },
-      "xlconcat_2_dout": {
+      "xlslice_2_Dout": {
         "ports": [
-          "xlconcat_2/dout",
-          "complexMapper_0/topLeftX"
+          "xlslice_2/Dout",
+          "C_IM_1_GPIO/gpio_io_i"
         ]
       },
-      "xlconcat_3_dout": {
+      "xlslice_3_Dout": {
         "ports": [
-          "xlconcat_3/dout",
-          "complexMapper_0/topLeftY"
-        ]
-      },
-      "xlconcat_4_dout": {
-        "ports": [
-          "xlconcat_4/dout",
-          "complexMapper_0/pixelX"
-        ]
-      },
-      "xlconcat_5_dout": {
-        "ports": [
-          "xlconcat_5/dout",
-          "complexMapper_0/pixelY"
-        ]
-      },
-      "xlconcat_6_dout": {
-        "ports": [
-          "xlconcat_6/dout",
-          "MANDELBROT_0/gpio_io_i"
-        ]
-      },
-      "xlconcat_6_dout1": {
-        "ports": [
-          "xlconcat_7/dout",
-          "MANDELBROT_1/gpio_io_i"
-        ]
-      },
-      "xlconcat_6_dout2": {
-        "ports": [
-          "xlconcat_8/dout",
-          "MANDELBROT_2/gpio_io_i"
-        ]
-      },
-      "xlconcat_6_dout3": {
-        "ports": [
-          "xlconcat_9/dout",
-          "MANDELBROT_3/gpio_io_i"
+          "xlslice_3/Dout",
+          "C_IM_1_GPIO/gpio2_io_i"
         ]
       }
     },
@@ -3361,59 +2743,21 @@
         "address_spaces": {
           "Data": {
             "segments": {
-              "SEG_MANDELBROT_1_Reg": {
-                "address_block": "/MANDELBROT_1/S_AXI/Reg",
-                "offset": "0x41280000",
-                "range": "64K"
+              "SEG_AXI_BROT_0_S00_AXI_reg": {
+                "address_block": "/AXI_BROT_0/S00_AXI/S00_AXI_reg",
+                "offset": "0x43C00000",
+                "range": "64K",
+                "offset_base_param": "C_S00_AXI_BASEADDR",
+                "offset_high_param": "C_S00_AXI_HIGHADDR"
               },
-              "SEG_MANDELBROT_2_Reg": {
-                "address_block": "/MANDELBROT_2/S_AXI/Reg",
-                "offset": "0x41290000",
-                "range": "64K"
-              },
-              "SEG_MANDELBROT_3_Reg": {
-                "address_block": "/MANDELBROT_3/S_AXI/Reg",
-                "offset": "0x412A0000",
-                "range": "64K"
-              },
-              "SEG_PIXEL_X_Reg": {
-                "address_block": "/PIXEL_X/S_AXI/Reg",
-                "offset": "0x41210000",
-                "range": "64K"
-              },
-              "SEG_PIXEL_Y_Reg": {
-                "address_block": "/PIXEL_Y/S_AXI/Reg",
-                "offset": "0x41220000",
-                "range": "64K"
-              },
-              "SEG_START_MANDELBROT_Reg": {
-                "address_block": "/START_MANDELBROT/S_AXI/Reg",
-                "offset": "0x41270000",
-                "range": "64K"
-              },
-              "SEG_STEP_Y_Reg": {
-                "address_block": "/STEP_Y/S_AXI/Reg",
-                "offset": "0x41230000",
-                "range": "64K"
-              },
-              "SEG_TOP_LEFT_X_Reg": {
-                "address_block": "/TOP_LEFT_X/S_AXI/Reg",
-                "offset": "0x41240000",
-                "range": "64K"
-              },
-              "SEG_TOP_LEFT_Y_Reg": {
-                "address_block": "/TOP_LEFT_Y/S_AXI/Reg",
-                "offset": "0x41250000",
-                "range": "64K"
-              },
-              "SEG_axi_gpio_0_Reg": {
-                "address_block": "/STEP_X/S_AXI/Reg",
+              "SEG_C_IM_1_GPIO_Reg": {
+                "address_block": "/C_IM_1_GPIO/S_AXI/Reg",
                 "offset": "0x41200000",
                 "range": "64K"
               },
-              "SEG_axi_gpio_0_Reg_1": {
-                "address_block": "/MANDELBROT_0/S_AXI/Reg",
-                "offset": "0x41260000",
+              "SEG_C_RE_1_GPIO_Reg": {
+                "address_block": "/C_RE_1_GPIO/S_AXI/Reg",
+                "offset": "0x41210000",
                 "range": "64K"
               }
             }

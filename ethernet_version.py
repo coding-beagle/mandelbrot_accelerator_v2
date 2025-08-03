@@ -13,8 +13,8 @@ import keyboard as kb
 # CONNECTION STUFF
 host = "192.168.1.10"
 port = 7
-host2 = "192.168.1.3"
-port2 = 7
+# host2 = "192.168.1.3"
+# port2 = 7
 
 # RENDERING SETTINGS
 PIXELS_PER_LINE_LOW = 320
@@ -68,7 +68,7 @@ selection_complete = False
 
 colour_r, colour_g, colour_b = 0, 215, 255
 
-MAX_COLOUR = (255, 255, 255)
+MAX_COLOUR = (0, 0, 0)
 
 
 class MandelbrotStreamingClient:
@@ -517,12 +517,13 @@ def calculate():
 
     send_float(0.0, NamedRegisters.CURRENT_Y.value)
 
-    print(
-        f"Current coordinates = {fetch_float(NamedRegisters.CURRENT_X.value)}, {fetch_float(NamedRegisters.CURRENT_Y.value)} "
-    )
+    # print(
+    #     f"Current coordinates = {fetch_float(NamedRegisters.CURRENT_X.value)}, {fetch_float(NamedRegisters.CURRENT_Y.value)} "
+    # )
 
     for socket in sockets:
         flush_socket_buffer(socket)
+        socket.send("RESET".encode())
         socket.send("CALCE".encode())
 
     time_start = time_ns()
@@ -544,8 +545,8 @@ def send_defaults():
     print(fetch_float(NamedRegisters.STEP_X.value))
     send_float(FP_DEFAULT_YSTEP, NamedRegisters.STEP_Y.value)
     print(fetch_float(NamedRegisters.STEP_Y.value))
-    send_float(FP_ZERO, NamedRegisters.CURRENT_X.value)
-    send_float(FP_ZERO, NamedRegisters.CURRENT_Y.value)
+    # send_float(FP_ZERO, NamedRegisters.CURRENT_X.value)
+    # send_float(FP_ZERO, NamedRegisters.CURRENT_Y.value)
 
 
 send_defaults()
@@ -558,11 +559,11 @@ current_xstep = FP_DEFAULT_XSTEP
 current_ystep = FP_DEFAULT_YSTEP
 stepping_factor = FP_STEPPING
 
+MANDELCLOCK_SPEED = 100_000_000
+
 
 def calc_and_redraw():
     global data, temp_img, total_time
-    send_float(0.0, NamedRegisters.CURRENT_X.value)
-    send_float(0.0, NamedRegisters.CURRENT_Y.value)
     calculate()
     new_data = get_line_streaming(s)
 
@@ -571,7 +572,11 @@ def calc_and_redraw():
     print(
         f"Took {total_time} to calculate {total_iterations} iterations. Iteration calculation rate = {total_iterations / total_time} iters/s"
     )
-    print(f"Time per pixel = {total_time / (PIXELS_PER_LINE * TOTAL_Y)}")
+    print(f"Time per pixel = {total_time / (PIXELS_PER_LINE * TOTAL_Y * 10E-6)} us")
+    print(
+        f"Theoretical Maximum Calculation Time: {total_iterations / (MANDELCLOCK_SPEED)} s vs actual time {total_time} s"
+    )
+    print(f"Delta T = {total_iterations / (MANDELCLOCK_SPEED) - total_time} s")
 
     data = np.zeros([new_data.shape[0], new_data.shape[1], 3], np.uint8)
     temp_img = None
@@ -720,12 +725,6 @@ def decrement_current_colour():
 
 # Keyboard shortcuts
 kb.add_hotkey("r", lambda: reset_and_redraw())
-# kb.add_hotkey("a", lambda: pan_left())
-# kb.add_hotkey("d", lambda: pan_right())
-# kb.add_hotkey("w", lambda: pan_up())
-# kb.add_hotkey("s", lambda: pan_down())
-# kb.add_hotkey("f", lambda: zoom_in())
-# kb.add_hotkey("g", lambda: zoom_out())
 kb.add_hotkey("up", lambda: increase_colour())
 kb.add_hotkey("down", lambda: decrease_colour())
 kb.add_hotkey("left", lambda: decrement_current_colour())

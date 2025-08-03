@@ -42,9 +42,9 @@
 #include "xil_printf.h"
 #endif
 
-#define LINE_SIZE 640
-#define HEIGHT 480
-#define LINES_PER_SEND 4
+#define LINE_SIZE 400
+#define HEIGHT 300
+#define LINES_PER_SEND 6
 
 
 int transfer_data() {
