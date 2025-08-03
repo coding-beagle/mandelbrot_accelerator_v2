@@ -1,0 +1,405 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
+| Date         : Sun Aug  3 20:40:06 2025
+| Host         : NICKYSEXYPCV2 running 64-bit major release  (build 9200)
+| Command      : upgrade_ip
+| Device       : xc7z020clg400-1
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'mandelbrot_bd_AXI_BROT_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of mandelbrot_bd_AXI_BROT_0_0 (xilinx.com:user:AXI_BROT:1.0) from (Rev. 3) to (Rev. 5)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
+| Date         : Fri Aug  1 21:42:23 2025
+| Host         : NICKYSEXYPCV2 running 64-bit major release  (build 9200)
+| Command      : upgrade_ip
+| Device       : xc7z020clg400-1
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'mandelbrot_bd_AXI_BROT_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of mandelbrot_bd_AXI_BROT_0_0 (xilinx.com:user:AXI_BROT:1.0) from (Rev. 2) to (Rev. 3)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
+| Date         : Thu Jul 31 13:43:46 2025
+| Host         : NICKYSEXYPCV2 running 64-bit major release  (build 9200)
+| Command      : upgrade_ip
+| Device       : xc7z020clg400-1
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'mandelbrot_bd_AXI_Mandelbrot_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the update of mandelbrot_bd_AXI_Mandelbrot_0_0 (xilinx.com:user:AXI_Mandelbrot:1.0 (Rev. 14)) to current project options.
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
+| Date         : Thu Jul 31 13:43:20 2025
+| Host         : NICKYSEXYPCV2 running 64-bit major release  (build 9200)
+| Command      : upgrade_ip
+| Device       : xc7z020clg400-1
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'mandelbrot_bd_AXI_Mandelbrot_0_0'
+
+1. Summary
+----------
+
+CAUTION (success, with warnings) in the upgrade of mandelbrot_bd_AXI_Mandelbrot_0_0 (xilinx.com:user:AXI_Mandelbrot:1.0) from (Rev. 13) to (Rev. 14)
+
+2. Addressing Information
+-------------------------
+
+Detected addressing differences while upgrading 'mandelbrot_bd_AXI_Mandelbrot_0_0'. These changes may impact your design.
+
+
+-Upgrade has added address block 'S_AXI/S_AXI'
+
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
+| Date         : Thu Jul 31 13:42:08 2025
+| Host         : NICKYSEXYPCV2 running 64-bit major release  (build 9200)
+| Command      : upgrade_ip
+| Device       : xc7z020clg400-1
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'mandelbrot_bd_AXI_Mandelbrot_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the update of mandelbrot_bd_AXI_Mandelbrot_0_0 (xilinx.com:user:AXI_Mandelbrot:1.0 (Rev. 13)) to current project options.
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
+| Date         : Thu Jul 31 13:41:58 2025
+| Host         : NICKYSEXYPCV2 running 64-bit major release  (build 9200)
+| Command      : upgrade_ip
+| Device       : xc7z020clg400-1
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'mandelbrot_bd_AXI_Mandelbrot_0_0'
+
+1. Summary
+----------
+
+CAUTION (success, with warnings) in the upgrade of mandelbrot_bd_AXI_Mandelbrot_0_0 (xilinx.com:user:AXI_Mandelbrot:1.0) from (Rev. 12) to (Rev. 13)
+
+2. Addressing Information
+-------------------------
+
+Detected addressing differences while upgrading 'mandelbrot_bd_AXI_Mandelbrot_0_0'. These changes may impact your design.
+
+
+-Upgrade has removed address block 'S_AXI/S_AXI_CONTROL_BLOCK'
+
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
+| Date         : Thu Jul 31 13:32:54 2025
+| Host         : NICKYSEXYPCV2 running 64-bit major release  (build 9200)
+| Command      : upgrade_ip
+| Device       : xc7z020clg400-1
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'mandelbrot_bd_AXI_Mandelbrot_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of mandelbrot_bd_AXI_Mandelbrot_0_0 (xilinx.com:user:AXI_Mandelbrot:1.0) from (Rev. 11) to (Rev. 12)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
+| Date         : Thu Jul 31 13:01:42 2025
+| Host         : NICKYSEXYPCV2 running 64-bit major release  (build 9200)
+| Command      : upgrade_ip
+| Device       : xc7z020clg400-1
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'mandelbrot_bd_AXI_Mandelbrot_0_0'
+
+1. Summary
+----------
+
+CAUTION (success, with warnings) in the upgrade of mandelbrot_bd_AXI_Mandelbrot_0_0 (xilinx.com:user:AXI_Mandelbrot:1.0) from (Rev. 10) to (Rev. 11)
+
+2. Addressing Information
+-------------------------
+
+Detected addressing differences while upgrading 'mandelbrot_bd_AXI_Mandelbrot_0_0'. These changes may impact your design.
+
+
+-Upgrade has removed address block 'control/address_block'
+
+-Upgrade has added address block 'S_AXI/S_AXI_CONTROL_BLOCK'
+
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
+| Date         : Thu Jul 31 13:00:02 2025
+| Host         : NICKYSEXYPCV2 running 64-bit major release  (build 9200)
+| Command      : upgrade_ip
+| Device       : xc7z020clg400-1
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'mandelbrot_bd_AXI_Mandelbrot_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the update of mandelbrot_bd_AXI_Mandelbrot_0_0 (xilinx.com:user:AXI_Mandelbrot:1.0 (Rev. 10)) to current project options.
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
+| Date         : Thu Jul 31 12:59:47 2025
+| Host         : NICKYSEXYPCV2 running 64-bit major release  (build 9200)
+| Command      : upgrade_ip
+| Device       : xc7z020clg400-1
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'mandelbrot_bd_AXI_Mandelbrot_0_0'
+
+1. Summary
+----------
+
+CAUTION (success, with warnings) in the upgrade of mandelbrot_bd_AXI_Mandelbrot_0_0 (xilinx.com:user:AXI_Mandelbrot:1.0) from (Rev. 9) to (Rev. 10)
+
+2. Interface Information
+------------------------
+
+Detected external interface differences while upgrading 'mandelbrot_bd_AXI_Mandelbrot_0_0'.
+
+
+-Upgrade has removed interface 'control'
+
+-Upgrade has added interface 'S_AXI' (xilinx.com:interface:aximm:1.0)
+
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
+| Date         : Thu Jul 31 12:46:47 2025
+| Host         : NICKYSEXYPCV2 running 64-bit major release  (build 9200)
+| Command      : upgrade_ip
+| Device       : xc7z020clg400-1
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'mandelbrot_bd_AXI_Mandelbrot_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of mandelbrot_bd_AXI_Mandelbrot_0_0 (xilinx.com:user:AXI_Mandelbrot:1.0) from (Rev. 8) to (Rev. 9)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
+| Date         : Thu Jul 31 12:45:10 2025
+| Host         : NICKYSEXYPCV2 running 64-bit major release  (build 9200)
+| Command      : upgrade_ip
+| Device       : xc7z020clg400-1
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'mandelbrot_bd_AXI_Mandelbrot_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the update of mandelbrot_bd_AXI_Mandelbrot_0_0 (xilinx.com:user:AXI_Mandelbrot:1.0 (Rev. 8)) to current project options.
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
+| Date         : Thu Jul 31 12:45:01 2025
+| Host         : NICKYSEXYPCV2 running 64-bit major release  (build 9200)
+| Command      : upgrade_ip
+| Device       : xc7z020clg400-1
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'mandelbrot_bd_AXI_Mandelbrot_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of mandelbrot_bd_AXI_Mandelbrot_0_0 (xilinx.com:user:AXI_Mandelbrot:1.0) from (Rev. 7) to (Rev. 8)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
+| Date         : Thu Jul 31 12:37:43 2025
+| Host         : NICKYSEXYPCV2 running 64-bit major release  (build 9200)
+| Command      : upgrade_ip
+| Device       : xc7z020clg400-1
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'mandelbrot_bd_AXI_Mandelbrot_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of mandelbrot_bd_AXI_Mandelbrot_0_0 (xilinx.com:user:AXI_Mandelbrot:1.0) from (Rev. 6) to (Rev. 7)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
+| Date         : Thu Jul 31 12:30:43 2025
+| Host         : NICKYSEXYPCV2 running 64-bit major release  (build 9200)
+| Command      : upgrade_ip
+| Device       : xc7z020clg400-1
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'mandelbrot_bd_AXI_Mandelbrot_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of mandelbrot_bd_AXI_Mandelbrot_0_0 (xilinx.com:user:AXI_Mandelbrot:1.0) from (Rev. 5) to (Rev. 6)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
+| Date         : Thu Jul 31 11:01:44 2025
+| Host         : NICKYSEXYPCV2 running 64-bit major release  (build 9200)
+| Command      : upgrade_ip
+| Device       : xc7z020clg400-1
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'mandelbrot_bd_axi_smc_1'
+
+1. Summary
+----------
+
+CAUTION (success, with warnings) in the update of mandelbrot_bd_axi_smc_1 (xilinx.com:ip:smartconnect:1.0 (Rev. 27)) to current project options.
+
+After upgrade, an IP may have parameter and port differences compared to the original customization. Please review the parameters within the IP customization GUI to ensure proper functionality. Also, please review the updated IP instantiation template to ensure proper connectivity, and update your design if required.
+
+2. Connection and Interface Information
+---------------------------------------
+
+Connection and Interface information can not be compared for deferred elaboration IPs.
+mandelbrot_bd_axi_smc_1 may have connection or interface changes.
+
+
+3. Customization warnings
+-------------------------
+
+Parameter 'ASSOCIATED_BUSIF' is no longer present on the upgraded IP 'mandelbrot_bd_axi_smc_1', and cannot be set to 'M00_AXI:M01_AXI:M02_AXI:M03_AXI:M04_AXI:M05_AXI:M06_AXI:M07_AXI:M08_AXI:M09_AXI:M10_AXI:S00_AXI'
+
+
+4. Debug Commands
+-----------------
+
+  The following debug information can be passed to Vivado as Tcl commands,
+in order to validate or debug the output of the upgrade flow.
+  You may consult any warnings from within this upgrade, and alter or remove
+the configuration parameter(s) which caused the warning; then execute the Tcl
+commands, and use the IP Customization GUI to verify the IP configuration.
+
+create_ip -vlnv xilinx.com:ip:smartconnect:1.0 -user_name mandelbrot_bd_axi_smc_1
+set_property -dict "\
+  CONFIG.ADVANCED_PROPERTIES {0} \
+  CONFIG.Component_Name {mandelbrot_bd_axi_smc_1} \
+  CONFIG.HAS_ARESETN {1} \
+  CONFIG.NUM_CLKS {1} \
+  CONFIG.NUM_MI {11} \
+  CONFIG.NUM_SI {1} " [get_ips mandelbrot_bd_axi_smc_1]
+
+

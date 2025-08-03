@@ -1,0 +1,4 @@
+domain_path: S:\Codes\mandelbrot_super_accelerator\vitis\axi_blot\export\axi_blot\sw\bsp_axi
+app_src_dir: S:\programs\vivado\2025.1\Vitis\data\embeddedsw\lib\sw_apps\lwip_echo_server
+template: lwip_echo_server
+lang: c

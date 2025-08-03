@@ -1,0 +1,3 @@
+S:/Codes/mandelbrot_super_accelerator/vitis/axi_blot/zynq_fsbl/build/CMakeFiles/fsbl.elf.dir
+S:/Codes/mandelbrot_super_accelerator/vitis/axi_blot/zynq_fsbl/build/CMakeFiles/edit_cache.dir
+S:/Codes/mandelbrot_super_accelerator/vitis/axi_blot/zynq_fsbl/build/CMakeFiles/rebuild_cache.dir
