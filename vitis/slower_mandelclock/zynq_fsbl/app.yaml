@@ -1,0 +1,4 @@
+domain_path: S:\Codes\mandelbrot_super_accelerator\vitis\slower_mandelclock\zynq_fsbl\zynq_fsbl_bsp
+app_src_dir: S:\programs\vivado\2025.1\Vitis\data\embeddedsw\lib\sw_apps\zynq_fsbl
+template: zynq_fsbl
+lang: c

@@ -40,7 +40,6 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("S:/Codes/mandelbrot_super_accelerator/vitis/axi_blot/ps7_cortexa9_1/bsp_axi/bsp/libsrc/build_configs/gen_bsp/libsrc/xiltimer/src/core/default_timer/cmake_install.cmake")
-  include("S:/Codes/mandelbrot_super_accelerator/vitis/axi_blot/ps7_cortexa9_1/bsp_axi/bsp/libsrc/build_configs/gen_bsp/libsrc/xiltimer/src/core/scutimer/cmake_install.cmake")
 
 endif()
 
